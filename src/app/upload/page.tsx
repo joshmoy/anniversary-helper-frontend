@@ -100,35 +100,23 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
   };
 
   return (
-    <div style={{ padding: "32px" }}>
+    <div className="p-8">
       {/* Header */}
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: "bold", color: "#111827", marginBottom: "8px" }}>
-          CSV Upload
-        </h1>
-        <p style={{ color: "#6b7280" }}>Upload church member data in bulk using CSV files</p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">CSV Upload</h1>
+        <p className="text-gray-600">Upload church member data in bulk using CSV files</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "32px" }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Upload Section */}
         <div>
           {/* Instructions */}
-          <div
-            style={{
-              backgroundColor: "#eff6ff",
-              border: "1px solid #bfdbfe",
-              borderRadius: "8px",
-              padding: "16px",
-              marginBottom: "24px",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-              <InformationCircleIcon style={{ height: "20px", width: "20px", color: "#2563eb" }} />
-              <h3 style={{ fontSize: "16px", fontWeight: "600", color: "#1e40af", margin: 0 }}>
-                CSV Format Requirements
-              </h3>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <InformationCircleIcon className="h-5 w-5 text-blue-600" />
+              <h3 className="text-base font-semibold text-blue-800">CSV Format Requirements</h3>
             </div>
-            <ul style={{ margin: 0, paddingLeft: "20px", color: "#1e40af", fontSize: "14px" }}>
+            <ul className="text-sm text-blue-800 space-y-1 pl-5">
               <li>
                 <strong>Required columns:</strong> name, type, date
               </li>
@@ -148,24 +136,9 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
           </div>
 
           {/* Sample Download */}
-          <div style={{ marginBottom: "24px" }}>
-            <button
-              onClick={downloadSampleCSV}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                backgroundColor: "#f3f4f6",
-                color: "#374151",
-                padding: "10px 16px",
-                borderRadius: "8px",
-                border: "1px solid #d1d5db",
-                fontSize: "14px",
-                fontWeight: "500",
-                cursor: "pointer",
-              }}
-            >
-              <DocumentArrowUpIcon style={{ height: "16px", width: "16px" }} />
+          <div className="mb-6">
+            <button onClick={downloadSampleCSV} className="btn-secondary flex items-center gap-2">
+              <DocumentArrowUpIcon className="h-4 w-4" />
               Download Sample CSV
             </button>
           </div>
@@ -176,56 +149,25 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
             onDrop={handleDrop}
-            style={{
-              border: `2px dashed ${dragActive ? "#2563eb" : "#d1d5db"}`,
-              borderRadius: "8px",
-              padding: "48px 24px",
-              textAlign: "center",
-              backgroundColor: dragActive ? "#eff6ff" : "#fafafa",
-              transition: "all 0.2s",
-              marginBottom: "24px",
-            }}
+            className={`border-2 border-dashed rounded-lg py-12 px-6 text-center transition-all mb-6 relative ${
+              dragActive ? "border-blue-600 bg-blue-50" : "border-gray-300 bg-gray-50"
+            }`}
           >
             <CloudArrowUpIcon
-              style={{
-                height: "48px",
-                width: "48px",
-                color: dragActive ? "#2563eb" : "#9ca3af",
-                margin: "0 auto 16px",
-              }}
+              className={`h-12 w-12 mx-auto mb-4 ${dragActive ? "text-blue-600" : "text-gray-400"}`}
             />
 
             {file ? (
               <div>
-                <p
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    color: "#111827",
-                    margin: "0 0 8px 0",
-                  }}
-                >
-                  {file.name}
-                </p>
-                <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-                  {(file.size / 1024).toFixed(1)} KB
-                </p>
+                <p className="text-base font-medium text-gray-900 mb-2">{file.name}</p>
+                <p className="text-sm text-gray-600">{(file.size / 1024).toFixed(1)} KB</p>
               </div>
             ) : (
               <div>
-                <p
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "500",
-                    color: "#111827",
-                    margin: "0 0 8px 0",
-                  }}
-                >
+                <p className="text-base font-medium text-gray-900 mb-2">
                   Drop your CSV file here, or click to browse
                 </p>
-                <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
-                  Supports CSV files up to 10MB
-                </p>
+                <p className="text-sm text-gray-600">Supports CSV files up to 10MB</p>
               </div>
             )}
 
@@ -233,37 +175,22 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
               type="file"
               accept=".csv"
               onChange={handleFileChange}
-              style={{
-                position: "absolute",
-                opacity: 0,
-                width: "100%",
-                height: "100%",
-                cursor: "pointer",
-              }}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
           </div>
 
           {/* Upload Button */}
-          <div style={{ display: "flex", gap: "12px" }}>
+          <div className="flex gap-3">
             <button
               onClick={handleUpload}
               disabled={!file || uploading}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                backgroundColor: file && !uploading ? "#2563eb" : "#9ca3af",
-                color: "white",
-                padding: "12px 24px",
-                borderRadius: "8px",
-                border: "none",
-                fontSize: "16px",
-                fontWeight: "500",
-                cursor: file && !uploading ? "pointer" : "not-allowed",
-                flex: 1,
-              }}
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg text-base font-medium text-white border-none flex-1 transition-colors ${
+                file && !uploading
+                  ? "bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
             >
-              <DocumentArrowUpIcon style={{ height: "20px", width: "20px" }} />
+              <DocumentArrowUpIcon className="h-5 w-5" />
               {uploading ? "Uploading..." : "Upload CSV"}
             </button>
 
@@ -273,15 +200,7 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
                   setFile(null);
                   setUploadResult(null);
                 }}
-                style={{
-                  padding: "12px 16px",
-                  backgroundColor: "#f3f4f6",
-                  color: "#374151",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "8px",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                }}
+                className="btn-secondary px-4 py-3"
               >
                 Clear
               </button>
@@ -291,143 +210,72 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
 
         {/* Results Section */}
         <div>
-          <h3
-            style={{ fontSize: "18px", fontWeight: "600", color: "#111827", marginBottom: "16px" }}
-          >
-            Upload Results
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload Results</h3>
 
           {uploadResult ? (
-            <div
-              style={{
-                backgroundColor: "white",
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "24px",
-              }}
-            >
+            <div className="card">
               {/* Status */}
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}
-              >
+              <div className="flex items-center gap-2 mb-4">
                 {uploadResult.success ? (
-                  <CheckCircleIcon style={{ height: "24px", width: "24px", color: "#10b981" }} />
+                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
                 ) : (
-                  <ExclamationTriangleIcon
-                    style={{ height: "24px", width: "24px", color: "#ef4444" }}
-                  />
+                  <ExclamationTriangleIcon className="h-6 w-6 text-red-500" />
                 )}
                 <span
-                  style={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: uploadResult.success ? "#10b981" : "#ef4444",
-                  }}
+                  className={`text-base font-semibold ${
+                    uploadResult.success ? "text-green-600" : "text-red-600"
+                  }`}
                 >
                   {uploadResult.success ? "Upload Successful" : "Upload Failed"}
                 </span>
               </div>
 
               {/* Stats */}
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr",
-                  gap: "16px",
-                  marginBottom: "16px",
-                }}
-              >
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "12px",
-                    backgroundColor: "#f9fafb",
-                    borderRadius: "6px",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", fontWeight: "bold", color: "#111827" }}>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="text-center p-3 bg-gray-50 rounded-lg">
+                  <div className="text-2xl font-bold text-gray-900">
                     {uploadResult.records_processed}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#6b7280" }}>Records Processed</div>
+                  <div className="text-xs text-gray-600">Records Processed</div>
                 </div>
 
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "12px",
-                    backgroundColor: "#f0fdf4",
-                    borderRadius: "6px",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", fontWeight: "bold", color: "#16a34a" }}>
+                <div className="text-center p-3 bg-green-50 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600">
                     {uploadResult.records_added}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#16a34a" }}>Records Added</div>
+                  <div className="text-xs text-green-600">Records Added</div>
                 </div>
 
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "12px",
-                    backgroundColor: "#fef3c7",
-                    borderRadius: "6px",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", fontWeight: "bold", color: "#d97706" }}>
+                <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                  <div className="text-2xl font-bold text-yellow-600">
                     {uploadResult.records_updated}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#d97706" }}>Records Updated</div>
+                  <div className="text-xs text-yellow-600">Records Updated</div>
                 </div>
 
-                <div
-                  style={{
-                    textAlign: "center",
-                    padding: "12px",
-                    backgroundColor: "#fef2f2",
-                    borderRadius: "6px",
-                  }}
-                >
-                  <div style={{ fontSize: "24px", fontWeight: "bold", color: "#dc2626" }}>
+                <div className="text-center p-3 bg-red-50 rounded-lg">
+                  <div className="text-2xl font-bold text-red-600">
                     {uploadResult.records_processed -
                       uploadResult.records_added -
                       uploadResult.records_updated}
                   </div>
-                  <div style={{ fontSize: "12px", color: "#dc2626" }}>Errors</div>
+                  <div className="text-xs text-red-600">Errors</div>
                 </div>
               </div>
 
               {/* Error Message */}
               {uploadResult.error && (
-                <div
-                  style={{
-                    backgroundColor: "#fef2f2",
-                    border: "1px solid #fecaca",
-                    borderRadius: "6px",
-                    padding: "12px",
-                  }}
-                >
-                  <p style={{ fontSize: "14px", color: "#dc2626", margin: 0 }}>
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                  <p className="text-sm text-red-700">
                     <strong>Error:</strong> {uploadResult.error}
                   </p>
                 </div>
               )}
             </div>
           ) : (
-            <div
-              style={{
-                backgroundColor: "#f9fafb",
-                border: "1px solid #e5e7eb",
-                borderRadius: "8px",
-                padding: "48px 24px",
-                textAlign: "center",
-              }}
-            >
-              <DocumentArrowUpIcon
-                style={{ height: "48px", width: "48px", color: "#d1d5db", margin: "0 auto 16px" }}
-              />
-              <p style={{ fontSize: "16px", color: "#6b7280", margin: 0 }}>
-                Upload results will appear here
-              </p>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg py-12 px-6 text-center">
+              <DocumentArrowUpIcon className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+              <p className="text-base text-gray-600">Upload results will appear here</p>
             </div>
           )}
         </div>

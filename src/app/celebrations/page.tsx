@@ -74,82 +74,41 @@ export default function CelebrationsPage() {
 
   if (loading) {
     return (
-      <div style={{ padding: "32px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div style={{ fontSize: "18px", color: "#6b7280" }}>Loading celebrations...</div>
+      <div className="p-8">
+        <div className="flex justify-center items-center h-48">
+          <div className="text-lg text-gray-500">Loading celebrations...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "32px" }}>
+    <div className="p-8">
       {/* Header */}
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: "bold", color: "#111827", marginBottom: "8px" }}>
-          Celebrations
-        </h1>
-        <p style={{ color: "#6b7280" }}>View celebrations for any date</p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Celebrations</h1>
+        <p className="text-gray-600">View celebrations for any date</p>
       </div>
 
       {/* Date Navigation */}
-      <div
-        style={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-          border: "1px solid #e5e7eb",
-          padding: "24px",
-          marginBottom: "32px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+      <div className="card mb-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
             <button
               onClick={goToPreviousDay}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                backgroundColor: "#f3f4f6",
-                color: "#374151",
-                padding: "8px 16px",
-                borderRadius: "8px",
-                border: "1px solid #d1d5db",
-                fontSize: "14px",
-                fontWeight: "500",
-                cursor: "pointer",
-              }}
+              className="btn-secondary flex items-center gap-1"
               type="button"
             >
-              <ChevronLeftIcon style={{ height: "16px", width: "16px" }} />
+              <ChevronLeftIcon className="h-4 w-4" />
               Previous
             </button>
 
-            <div style={{ textAlign: "center" }}>
-              <h2 style={{ fontSize: "20px", fontWeight: "600", color: "#111827", margin: 0 }}>
+            <div className="text-center">
+              <h2 className="text-xl font-semibold text-gray-900">
                 {format(selectedDate, "EEEE, MMMM d, yyyy")}
               </h2>
               {isToday && (
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    padding: "2px 8px",
-                    borderRadius: "12px",
-                    fontSize: "12px",
-                    fontWeight: "500",
-                    backgroundColor: "#dbeafe",
-                    color: "#1e40af",
-                    marginTop: "4px",
-                  }}
-                >
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mt-1">
                   Today
                 </span>
               )}
@@ -157,146 +116,58 @@ export default function CelebrationsPage() {
 
             <button
               onClick={goToNextDay}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "4px",
-                backgroundColor: "#f3f4f6",
-                color: "#374151",
-                padding: "8px 16px",
-                borderRadius: "8px",
-                border: "1px solid #d1d5db",
-                fontSize: "14px",
-                fontWeight: "500",
-                cursor: "pointer",
-              }}
+              className="btn-secondary flex items-center gap-1"
               type="button"
             >
               Next
-              <ChevronRightIcon style={{ height: "16px", width: "16px" }} />
+              <ChevronRightIcon className="h-4 w-4" />
             </button>
           </div>
 
-          <button
-            onClick={goToToday}
-            style={{
-              backgroundColor: "#2563eb",
-              color: "white",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              border: "none",
-              fontSize: "14px",
-              fontWeight: "500",
-              cursor: "pointer",
-            }}
-            type="button"
-          >
+          <button onClick={goToToday} className="btn-primary" type="button">
             Today
           </button>
         </div>
       </div>
 
       {/* Stats and Filter */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "24px",
-          marginBottom: "32px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-            padding: "24px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <CalendarDaysIcon style={{ height: "32px", width: "32px", color: "#2563eb" }} />
-            <div style={{ marginLeft: "16px" }}>
-              <p style={{ fontSize: "14px", fontWeight: "500", color: "#6b7280", margin: 0 }}>
-                Total Celebrations
-              </p>
-              <p style={{ fontSize: "24px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {celebrations.length}
-              </p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="card">
+          <div className="flex items-center">
+            <CalendarDaysIcon className="h-8 w-8 text-blue-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Total Celebrations</p>
+              <p className="text-2xl font-bold text-gray-900">{celebrations.length}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-            padding: "24px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <CakeIcon style={{ height: "32px", width: "32px", color: "#ec4899" }} />
-            <div style={{ marginLeft: "16px" }}>
-              <p style={{ fontSize: "14px", fontWeight: "500", color: "#6b7280", margin: 0 }}>
-                Birthdays
-              </p>
-              <p style={{ fontSize: "24px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {birthdayCount}
-              </p>
+        <div className="card">
+          <div className="flex items-center">
+            <CakeIcon className="h-8 w-8 text-pink-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Birthdays</p>
+              <p className="text-2xl font-bold text-gray-900">{birthdayCount}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-            padding: "24px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <HeartIcon style={{ height: "32px", width: "32px", color: "#8b5cf6" }} />
-            <div style={{ marginLeft: "16px" }}>
-              <p style={{ fontSize: "14px", fontWeight: "500", color: "#6b7280", margin: 0 }}>
-                Anniversaries
-              </p>
-              <p style={{ fontSize: "24px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {anniversaryCount}
-              </p>
+        <div className="card">
+          <div className="flex items-center">
+            <HeartIcon className="h-8 w-8 text-purple-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Anniversaries</p>
+              <p className="text-2xl font-bold text-gray-900">{anniversaryCount}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-            padding: "24px",
-          }}
-        >
-          <label
-            style={{
-              display: "block",
-              fontSize: "14px",
-              fontWeight: "500",
-              color: "#6b7280",
-              marginBottom: "8px",
-            }}
-          >
-            Filter
-          </label>
+        <div className="card">
+          <label className="block text-sm font-medium text-gray-600 mb-2">Filter</label>
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as any)}
-            style={{
-              width: "100%",
-              padding: "8px 12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "6px",
-              fontSize: "14px",
-            }}
+            className="input-field"
           >
             <option value="all">All Events</option>
             <option value="birthday">Birthdays</option>
@@ -307,139 +178,56 @@ export default function CelebrationsPage() {
 
       {/* Celebrations List */}
       {filteredCelebrations.length > 0 ? (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "24px",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCelebrations.map((person) => (
-            <div
-              key={person.id}
-              style={{
-                backgroundColor: "white",
-                borderRadius: "8px",
-                border: "1px solid #e5e7eb",
-                padding: "24px",
-                transition: "box-shadow 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+            <div key={person.id} className="card hover:shadow-md transition-shadow duration-200">
+              <div className="flex items-start gap-4">
                 <div
-                  style={{
-                    flexShrink: 0,
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "24px",
-                    backgroundColor: person.event_type === "birthday" ? "#fce7f3" : "#f3e8ff",
-                  }}
+                  className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-2xl ${
+                    person.event_type === "birthday" ? "bg-pink-100" : "bg-purple-100"
+                  }`}
                 >
                   {person.event_type === "birthday" ? "🎂" : "💕"}
                 </div>
 
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <h3
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: "600",
-                        color: "#111827",
-                        margin: 0,
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {person.name}
-                    </h3>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 truncate">{person.name}</h3>
                     <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        padding: "2px 8px",
-                        borderRadius: "12px",
-                        fontSize: "12px",
-                        fontWeight: "500",
-                        backgroundColor: person.event_type === "birthday" ? "#fce7f3" : "#f3e8ff",
-                        color: person.event_type === "birthday" ? "#be185d" : "#7c3aed",
-                      }}
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                        person.event_type === "birthday"
+                          ? "bg-pink-100 text-pink-800"
+                          : "bg-purple-100 text-purple-800"
+                      }`}
                     >
                       {person.event_type === "birthday" ? "Birthday" : "Anniversary"}
                     </span>
                   </div>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        fontSize: "14px",
-                        color: "#6b7280",
-                      }}
-                    >
-                      <CalendarDaysIcon
-                        style={{ height: "16px", width: "16px", marginRight: "8px" }}
-                      />
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CalendarDaysIcon className="h-4 w-4 mr-2" />
                       {formatCelebrationDate(person)}
                     </div>
 
                     {calculateAge(person) && (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: "14px",
-                          color: "#6b7280",
-                        }}
-                      >
-                        <UserIcon style={{ height: "16px", width: "16px", marginRight: "8px" }} />
+                      <div className="flex items-center text-sm text-gray-600">
+                        <UserIcon className="h-4 w-4 mr-2" />
                         {calculateAge(person)}{" "}
                         {person.event_type === "birthday" ? "years old" : "years married"}
                       </div>
                     )}
 
                     {person.spouse && (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: "14px",
-                          color: "#6b7280",
-                        }}
-                      >
-                        <HeartIcon style={{ height: "16px", width: "16px", marginRight: "8px" }} />
+                      <div className="flex items-center text-sm text-gray-600">
+                        <HeartIcon className="h-4 w-4 mr-2" />
                         Spouse: {person.spouse}
                       </div>
                     )}
 
                     {person.phone_number && (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          fontSize: "14px",
-                          color: "#6b7280",
-                        }}
-                      >
-                        <PhoneIcon style={{ height: "16px", width: "16px", marginRight: "8px" }} />
+                      <div className="flex items-center text-sm text-gray-600">
+                        <PhoneIcon className="h-4 w-4 mr-2" />
                         {person.phone_number}
                       </div>
                     )}
@@ -450,24 +238,10 @@ export default function CelebrationsPage() {
           ))}
         </div>
       ) : (
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-            padding: "48px",
-            textAlign: "center",
-          }}
-        >
-          <CalendarDaysIcon
-            style={{ height: "48px", width: "48px", color: "#d1d5db", margin: "0 auto 16px" }}
-          />
-          <h3
-            style={{ fontSize: "18px", fontWeight: "500", color: "#111827", marginBottom: "8px" }}
-          >
-            No celebrations
-          </h3>
-          <p style={{ color: "#6b7280", margin: 0 }}>
+        <div className="card py-12 text-center">
+          <CalendarDaysIcon className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-900 mb-2">No celebrations</h3>
+          <p className="text-gray-600">
             {filterType === "all"
               ? `No celebrations on ${format(selectedDate, "MMMM d, yyyy")}`
               : `No ${filterType === "birthday" ? "birthdays" : "anniversaries"} on ${format(

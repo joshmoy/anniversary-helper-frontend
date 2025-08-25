@@ -70,112 +70,62 @@ export default function MessagesPage() {
 
   if (loading) {
     return (
-      <div style={{ padding: "32px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div style={{ fontSize: "18px", color: "#6b7280" }}>Loading messages...</div>
+      <div className="p-8">
+        <div className="flex justify-center items-center h-48">
+          <div className="text-lg text-gray-500">Loading messages...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "32px" }}>
+    <div className="p-8">
       {/* Header */}
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: "bold", color: "#111827", marginBottom: "8px" }}>
-          Message History
-        </h1>
-        <p style={{ color: "#6b7280" }}>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Message History</h1>
+        <p className="text-gray-600">
           View all sent celebration messages and their delivery status
         </p>
       </div>
 
       {/* Stats */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "16px",
-          marginBottom: "24px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <ChatBubbleLeftRightIcon style={{ height: "24px", width: "24px", color: "#2563eb" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Total Messages</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {messages.length}
-              </p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div className="card">
+          <div className="flex items-center">
+            <ChatBubbleLeftRightIcon className="h-8 w-8 text-blue-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Total Messages</p>
+              <p className="text-2xl font-bold text-gray-900">{messages.length}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <CheckCircleIcon style={{ height: "24px", width: "24px", color: "#10b981" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Successful</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {successCount}
-              </p>
+        <div className="card">
+          <div className="flex items-center">
+            <CheckCircleIcon className="h-8 w-8 text-green-500" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Successful</p>
+              <p className="text-2xl font-bold text-gray-900">{successCount}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <XCircleIcon style={{ height: "24px", width: "24px", color: "#ef4444" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Failed</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
-                {failedCount}
-              </p>
+        <div className="card">
+          <div className="flex items-center">
+            <XCircleIcon className="h-8 w-8 text-red-500" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Failed</p>
+              <p className="text-2xl font-bold text-gray-900">{failedCount}</p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <CalendarDaysIcon style={{ height: "24px", width: "24px", color: "#8b5cf6" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Success Rate</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
+        <div className="card">
+          <div className="flex items-center">
+            <CalendarDaysIcon className="h-8 w-8 text-purple-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Success Rate</p>
+              <p className="text-2xl font-bold text-gray-900">
                 {messages.length > 0 ? Math.round((successCount / messages.length) * 100) : 0}%
               </p>
             </div>
@@ -184,48 +134,19 @@ export default function MessagesPage() {
       </div>
 
       {/* Controls */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "24px",
-          flexWrap: "wrap",
-          gap: "16px",
-        }}
-      >
-        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+        <div className="flex gap-4 items-center">
           {/* Search */}
-          <div
-            style={{
-              paddingLeft: "40px",
-              padding: "8px 12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "6px",
-              fontSize: "14px",
-              width: "250px",
-              backgroundColor: "white",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <MagnifyingGlassIcon
-              style={{
-                height: "16px",
-                width: "16px",
-                color: "#6b7280",
-              }}
-            />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <MagnifyingGlassIcon className="h-4 w-4 text-gray-500" />
+            </div>
             <input
               type="text"
               placeholder="Search messages..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                fontSize: "14px",
-                width: "200px",
-              }}
+              className="input-field pl-10 w-64"
             />
           </div>
 
@@ -233,12 +154,7 @@ export default function MessagesPage() {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as any)}
-            style={{
-              padding: "8px 12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "6px",
-              fontSize: "14px",
-            }}
+            className="input-field"
           >
             <option value="all">All Messages</option>
             <option value="success">Successful Only</option>
@@ -248,98 +164,51 @@ export default function MessagesPage() {
       </div>
 
       {/* Messages List */}
-      <div
-        style={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-          border: "1px solid #e5e7eb",
-          overflow: "hidden",
-        }}
-      >
+      <div className="card overflow-hidden">
         {filteredMessages.length > 0 ? (
           <div>
             {filteredMessages.map((message) => (
               <div
                 key={message.id}
-                style={{
-                  padding: "20px",
-                  borderBottom: "1px solid #f3f4f6",
-                  cursor: "pointer",
-                  transition: "background-color 0.2s",
-                }}
+                className="p-5 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors"
                 onClick={() => setSelectedMessage(message)}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f9fafb")}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "white")}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    gap: "16px",
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        marginBottom: "8px",
-                      }}
-                    >
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
                       {message.success ? (
-                        <CheckCircleIcon
-                          style={{ height: "16px", width: "16px", color: "#10b981" }}
-                        />
+                        <CheckCircleIcon className="h-4 w-4 text-green-500" />
                       ) : (
-                        <XCircleIcon style={{ height: "16px", width: "16px", color: "#ef4444" }} />
+                        <XCircleIcon className="h-4 w-4 text-red-500" />
                       )}
                       <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: "500",
-                          color: message.success ? "#10b981" : "#ef4444",
-                        }}
+                        className={`text-xs font-medium ${
+                          message.success ? "text-green-600" : "text-red-600"
+                        }`}
                       >
                         {message.success ? "Delivered" : "Failed"}
                       </span>
-                      <span style={{ fontSize: "12px", color: "#6b7280" }}>
+                      <span className="text-xs text-gray-500">
                         {formatDate(message.sent_date)} at {formatTime(message.created_at)}
                       </span>
                     </div>
 
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        color: "#111827",
-                        margin: "0 0 8px 0",
-                        lineHeight: "1.5",
-                      }}
-                    >
+                    <p className="text-sm text-gray-900 mb-2 leading-relaxed">
                       {truncateMessage(message.message_content)}
                     </p>
 
                     {message.error_message && (
-                      <div
-                        style={{
-                          backgroundColor: "#fef2f2",
-                          border: "1px solid #fecaca",
-                          borderRadius: "4px",
-                          padding: "8px",
-                          marginTop: "8px",
-                        }}
-                      >
-                        <p style={{ fontSize: "12px", color: "#dc2626", margin: 0 }}>
+                      <div className="bg-red-50 border border-red-200 rounded p-2 mt-2">
+                        <p className="text-xs text-red-600">
                           <strong>Error:</strong> {message.error_message}
                         </p>
                       </div>
                     )}
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <UserIcon style={{ height: "16px", width: "16px", color: "#6b7280" }} />
-                    <span style={{ fontSize: "12px", color: "#6b7280" }}>
+                  <div className="flex items-center gap-2">
+                    <UserIcon className="h-4 w-4 text-gray-500" />
+                    <span className="text-xs text-gray-500">
                       {message.person_name || `Person ID: ${message.person_id}`}
                     </span>
                   </div>
@@ -348,17 +217,9 @@ export default function MessagesPage() {
             ))}
           </div>
         ) : (
-          <div
-            style={{
-              padding: "48px",
-              textAlign: "center",
-              color: "#6b7280",
-            }}
-          >
-            <ChatBubbleLeftRightIcon
-              style={{ height: "48px", width: "48px", margin: "0 auto 16px", color: "#d1d5db" }}
-            />
-            <p style={{ fontSize: "16px", margin: 0 }}>
+          <div className="py-12 text-center text-gray-600">
+            <ChatBubbleLeftRightIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <p className="text-base">
               {searchTerm || filterStatus !== "all"
                 ? "No messages match your search criteria"
                 : "No messages found"}
@@ -369,135 +230,50 @@ export default function MessagesPage() {
 
       {/* Message Detail Modal */}
       {selectedMessage && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "24px",
-              maxWidth: "600px",
-              width: "90%",
-              maxHeight: "80vh",
-              overflow: "auto",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "16px",
-              }}
-            >
-              <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#111827", margin: 0 }}>
-                Message Details
-              </h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Message Details</h3>
               <button
                 onClick={() => setSelectedMessage(null)}
-                style={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  fontSize: "24px",
-                  cursor: "pointer",
-                  color: "#6b7280",
-                }}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-light"
               >
                 ×
               </button>
             </div>
 
-            <div style={{ marginBottom: "16px" }}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}
-              >
+            <div className="mb-4">
+              <div className="flex items-center gap-2 mb-2">
                 {selectedMessage.success ? (
-                  <CheckCircleIcon style={{ height: "20px", width: "20px", color: "#10b981" }} />
+                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
                 ) : (
-                  <XCircleIcon style={{ height: "20px", width: "20px", color: "#ef4444" }} />
+                  <XCircleIcon className="h-5 w-5 text-red-500" />
                 )}
                 <span
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: selectedMessage.success ? "#10b981" : "#ef4444",
-                  }}
+                  className={`text-sm font-medium ${
+                    selectedMessage.success ? "text-green-600" : "text-red-600"
+                  }`}
                 >
                   {selectedMessage.success ? "Successfully Delivered" : "Delivery Failed"}
                 </span>
               </div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>
+              <p className="text-xs text-gray-500">
                 Sent on {formatDate(selectedMessage.sent_date)} at{" "}
                 {formatTime(selectedMessage.created_at)}
               </p>
             </div>
 
-            <div
-              style={{
-                backgroundColor: "#f9fafb",
-                border: "1px solid #e5e7eb",
-                borderRadius: "6px",
-                padding: "16px",
-                marginBottom: "16px",
-              }}
-            >
-              <h4
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  color: "#111827",
-                  marginBottom: "8px",
-                }}
-              >
-                Message Content:
-              </h4>
-              <pre
-                style={{
-                  fontSize: "14px",
-                  color: "#374151",
-                  margin: 0,
-                  whiteSpace: "pre-wrap",
-                  fontFamily: "inherit",
-                }}
-              >
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+              <h4 className="text-sm font-semibold text-gray-900 mb-2">Message Content:</h4>
+              <pre className="text-sm text-gray-700 whitespace-pre-wrap font-inherit">
                 {selectedMessage.message_content}
               </pre>
             </div>
 
             {selectedMessage.error_message && (
-              <div
-                style={{
-                  backgroundColor: "#fef2f2",
-                  border: "1px solid #fecaca",
-                  borderRadius: "6px",
-                  padding: "12px",
-                }}
-              >
-                <h4
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: "600",
-                    color: "#dc2626",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Error Details:
-                </h4>
-                <p style={{ fontSize: "14px", color: "#dc2626", margin: 0 }}>
-                  {selectedMessage.error_message}
-                </p>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <h4 className="text-sm font-semibold text-red-700 mb-1">Error Details:</h4>
+                <p className="text-sm text-red-700">{selectedMessage.error_message}</p>
               </div>
             )}
           </div>

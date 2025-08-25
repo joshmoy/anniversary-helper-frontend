@@ -15,9 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div style={{ display: "flex", height: "100vh", backgroundColor: "#f3f4f6" }}>
+        <div className="flex h-screen bg-gray-100">
           <Sidebar />
-          <main style={{ flex: 1, overflowY: "auto" }}>{children}</main>
+          <main className="flex-1 overflow-y-auto">{children}</main>
         </div>
         <Toaster position="top-right" />
       </body>

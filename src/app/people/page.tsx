@@ -125,68 +125,39 @@ export default function PeoplePage() {
 
   if (loading) {
     return (
-      <div style={{ padding: "32px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "200px",
-          }}
-        >
-          <div style={{ fontSize: "18px", color: "#6b7280" }}>Loading people...</div>
+      <div className="p-8">
+        <div className="flex justify-center items-center h-48">
+          <div className="text-lg text-gray-500">Loading people...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "32px" }}>
+    <div className="p-8">
       {/* Header */}
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "30px", fontWeight: "bold", color: "#111827", marginBottom: "8px" }}>
-          People Management
-        </h1>
-        <p style={{ color: "#6b7280" }}>Manage church member information and celebration dates</p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">People Management</h1>
+        <p className="text-gray-600">Manage church member information and celebration dates</p>
       </div>
 
       {/* Controls */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "24px",
-          flexWrap: "wrap",
-          gap: "16px",
-        }}
-      >
-        <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+        <div className="flex gap-4 items-center">
           {/* Search */}
           <input
             type="text"
             placeholder="Search people..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              padding: "8px 12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "6px",
-              fontSize: "14px",
-              width: "200px",
-            }}
+            className="input-field w-48"
           />
 
           {/* Filter */}
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as any)}
-            style={{
-              padding: "8px 12px",
-              border: "1px solid #d1d5db",
-              borderRadius: "6px",
-              fontSize: "14px",
-            }}
+            className="input-field"
           >
             <option value="all">All Events</option>
             <option value="birthday">Birthdays</option>
@@ -197,85 +168,45 @@ export default function PeoplePage() {
         {/* Add Person Button */}
         <button
           onClick={() => router.push("/upload")}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            backgroundColor: "#2563eb",
-            color: "white",
-            padding: "10px 16px",
-            borderRadius: "8px",
-            border: "none",
-            fontSize: "14px",
-            fontWeight: "500",
-            cursor: "pointer",
-          }}
+          className="btn-primary flex items-center gap-2"
         >
-          <PlusIcon style={{ height: "16px", width: "16px" }} />
+          <PlusIcon className="h-4 w-4" />
           Add Person
         </button>
       </div>
 
       {/* Stats */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "16px",
-          marginBottom: "24px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <UserIcon style={{ height: "24px", width: "24px", color: "#2563eb" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Total People</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div className="card">
+          <div className="flex items-center">
+            <UserIcon className="h-8 w-8 text-blue-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Total People</p>
+              <p className="text-2xl font-bold text-gray-900">
                 {people.filter((p) => p.active).length}
               </p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <CalendarDaysIcon style={{ height: "24px", width: "24px", color: "#ec4899" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Birthdays</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
+        <div className="card">
+          <div className="flex items-center">
+            <CalendarDaysIcon className="h-8 w-8 text-pink-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Birthdays</p>
+              <p className="text-2xl font-bold text-gray-900">
                 {people.filter((p) => p.active && p.event_type === "birthday").length}
               </p>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            border: "1px solid #e5e7eb",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <CalendarDaysIcon style={{ height: "24px", width: "24px", color: "#8b5cf6" }} />
-            <div>
-              <p style={{ fontSize: "12px", color: "#6b7280", margin: 0 }}>Anniversaries</p>
-              <p style={{ fontSize: "20px", fontWeight: "bold", color: "#111827", margin: 0 }}>
+        <div className="card">
+          <div className="flex items-center">
+            <CalendarDaysIcon className="h-8 w-8 text-purple-600" />
+            <div className="ml-4">
+              <p className="text-sm font-medium text-gray-600">Anniversaries</p>
+              <p className="text-2xl font-bold text-gray-900">
                 {people.filter((p) => p.active && p.event_type === "anniversary").length}
               </p>
             </div>
@@ -284,179 +215,95 @@ export default function PeoplePage() {
       </div>
 
       {/* People Table */}
-      <div
-        style={{
-          backgroundColor: "white",
-          borderRadius: "8px",
-          border: "1px solid #e5e7eb",
-          overflow: "hidden",
-        }}
-      >
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead style={{ backgroundColor: "#f9fafb" }}>
+      <div className="card overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full table-auto">
+            <thead className="bg-gray-50">
               <tr>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Name
                 </th>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Event Type
                 </th>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Date
                 </th>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Age/Years
                 </th>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Phone
                 </th>
-                <th
-                  style={{
-                    padding: "12px 16px",
-                    textAlign: "left",
-                    fontSize: "12px",
-                    fontWeight: "600",
-                    color: "#374151",
-                    borderBottom: "1px solid #e5e7eb",
-                  }}
-                >
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
               {filteredPeople.map((person) => (
-                <tr key={person.id} style={{ borderBottom: "1px solid #f3f4f6" }}>
-                  <td style={{ padding: "16px", fontSize: "14px", color: "#111827" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <tr key={person.id} className="border-b border-gray-100">
+                  <td className="px-4 py-4 text-sm text-gray-900">
+                    <div className="flex items-center gap-2">
                       <div
-                        style={{
-                          width: "32px",
-                          height: "32px",
-                          borderRadius: "50%",
-                          backgroundColor: person.event_type === "birthday" ? "#fce7f3" : "#f3e8ff",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          person.event_type === "birthday" ? "bg-pink-100" : "bg-purple-100"
+                        }`}
                       >
                         {person.event_type === "birthday" ? "🎂" : "💕"}
                       </div>
                       <div>
-                        <div style={{ fontWeight: "500" }}>{person.name}</div>
+                        <div className="font-medium">{person.name}</div>
                         {person.spouse && (
-                          <div style={{ fontSize: "12px", color: "#6b7280" }}>
-                            Spouse: {person.spouse}
-                          </div>
+                          <div className="text-xs text-gray-600">Spouse: {person.spouse}</div>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td style={{ padding: "16px", fontSize: "14px", color: "#111827" }}>
+                  <td className="px-4 py-4 text-sm text-gray-900">
                     <span
-                      style={{
-                        padding: "4px 8px",
-                        borderRadius: "4px",
-                        fontSize: "12px",
-                        fontWeight: "500",
-                        backgroundColor: person.event_type === "birthday" ? "#fce7f3" : "#f3e8ff",
-                        color: person.event_type === "birthday" ? "#be185d" : "#7c3aed",
-                      }}
+                      className={`px-2 py-1 rounded text-xs font-medium ${
+                        person.event_type === "birthday"
+                          ? "bg-pink-100 text-pink-800"
+                          : "bg-purple-100 text-purple-800"
+                      }`}
                     >
                       {person.event_type === "birthday" ? "Birthday" : "Anniversary"}
                     </span>
                   </td>
-                  <td style={{ padding: "16px", fontSize: "14px", color: "#111827" }}>
+                  <td className="px-4 py-4 text-sm text-gray-900">
                     {formatDate(person.event_date)}
                   </td>
-                  <td style={{ padding: "16px", fontSize: "14px", color: "#111827" }}>
+                  <td className="px-4 py-4 text-sm text-gray-900">
                     {calculateAge(person)
                       ? `${calculateAge(person)} ${
                           person.event_type === "birthday" ? "years old" : "years married"
                         }`
                       : "-"}
                   </td>
-                  <td style={{ padding: "16px", fontSize: "14px", color: "#111827" }}>
+                  <td className="px-4 py-4 text-sm text-gray-900">
                     {person.phone_number ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                        <PhoneIcon style={{ height: "14px", width: "14px", color: "#6b7280" }} />
+                      <div className="flex items-center gap-1">
+                        <PhoneIcon className="h-3.5 w-3.5 text-gray-500" />
                         {person.phone_number}
                       </div>
                     ) : (
-                      <span style={{ color: "#9ca3af" }}>No phone</span>
+                      <span className="text-gray-400">No phone</span>
                     )}
                   </td>
-                  <td style={{ padding: "16px" }}>
-                    <div style={{ display: "flex", gap: "8px" }}>
+                  <td className="px-4 py-4">
+                    <div className="flex gap-2">
                       <button
                         onClick={() => handleEdit(person)}
-                        style={{
-                          padding: "6px",
-                          backgroundColor: "#f3f4f6",
-                          border: "none",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
+                        className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
                       >
-                        <PencilIcon style={{ height: "14px", width: "14px", color: "#6b7280" }} />
+                        <PencilIcon className="h-3.5 w-3.5 text-gray-600" />
                       </button>
                       <button
                         onClick={() => handleDelete(person)}
-                        style={{
-                          padding: "6px",
-                          backgroundColor: "#fef2f2",
-                          border: "none",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
+                        className="p-1.5 bg-red-50 hover:bg-red-100 rounded transition-colors"
                       >
-                        <TrashIcon style={{ height: "14px", width: "14px", color: "#dc2626" }} />
+                        <TrashIcon className="h-3.5 w-3.5 text-red-600" />
                       </button>
                     </div>
                   </td>
@@ -467,17 +314,9 @@ export default function PeoplePage() {
         </div>
 
         {filteredPeople.length === 0 && (
-          <div
-            style={{
-              padding: "48px",
-              textAlign: "center",
-              color: "#6b7280",
-            }}
-          >
-            <UserIcon
-              style={{ height: "48px", width: "48px", margin: "0 auto 16px", color: "#d1d5db" }}
-            />
-            <p style={{ fontSize: "16px", margin: 0 }}>
+          <div className="py-12 text-center text-gray-600">
+            <UserIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <p className="text-base">
               {searchTerm || filterType !== "all"
                 ? "No people match your search criteria"
                 : "No people found"}
@@ -488,97 +327,33 @@ export default function PeoplePage() {
 
       {/* Edit Modal */}
       {editingPerson && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "24px",
-              maxWidth: "500px",
-              width: "90%",
-              maxHeight: "80vh",
-              overflow: "auto",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "20px",
-              }}
-            >
-              <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#111827", margin: 0 }}>
-                Edit Person
-              </h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-lg w-full mx-4 max-h-[80vh] overflow-auto">
+            <div className="flex justify-between items-center mb-5">
+              <h3 className="text-lg font-semibold text-gray-900">Edit Person</h3>
               <button
                 onClick={() => setEditingPerson(null)}
-                style={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  fontSize: "24px",
-                  cursor: "pointer",
-                  color: "#6b7280",
-                }}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-light"
               >
                 ×
               </button>
             </div>
 
-            <div style={{ display: "grid", gap: "16px" }}>
+            <div className="grid gap-4">
               {/* Name */}
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#374151",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Name *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
                 <input
                   type="text"
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                  style={{
-                    width: "100%",
-                    padding: "8px 12px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                  }}
+                  className="input-field"
                 />
               </div>
 
               {/* Event Type */}
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#374151",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Event Type *
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Event Type *</label>
                 <select
                   value={editForm.event_type}
                   onChange={(e) =>
@@ -587,13 +362,7 @@ export default function PeoplePage() {
                       event_type: e.target.value as "birthday" | "anniversary",
                     })
                   }
-                  style={{
-                    width: "100%",
-                    padding: "8px 12px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                  }}
+                  className="input-field"
                 >
                   <option value="birthday">Birthday</option>
                   <option value="anniversary">Anniversary</option>
@@ -602,15 +371,7 @@ export default function PeoplePage() {
 
               {/* Event Date */}
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#374151",
-                    marginBottom: "4px",
-                  }}
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Event Date * (MM-DD format)
                 </label>
                 <input
@@ -618,27 +379,13 @@ export default function PeoplePage() {
                   placeholder="03-15"
                   value={editForm.event_date}
                   onChange={(e) => setEditForm({ ...editForm, event_date: e.target.value })}
-                  style={{
-                    width: "100%",
-                    padding: "8px 12px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                  }}
+                  className="input-field"
                 />
               </div>
 
               {/* Year */}
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#374151",
-                    marginBottom: "4px",
-                  }}
-                >
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Year (Birth year or Marriage year)
                 </label>
                 <input
@@ -646,105 +393,43 @@ export default function PeoplePage() {
                   placeholder="1990"
                   value={editForm.year}
                   onChange={(e) => setEditForm({ ...editForm, year: e.target.value })}
-                  style={{
-                    width: "100%",
-                    padding: "8px 12px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                  }}
+                  className="input-field"
                 />
               </div>
 
               {/* Spouse (only for anniversaries) */}
               {editForm.event_type === "anniversary" && (
                 <div>
-                  <label
-                    style={{
-                      display: "block",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "#374151",
-                      marginBottom: "4px",
-                    }}
-                  >
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
                     Spouse Name
                   </label>
                   <input
                     type="text"
                     value={editForm.spouse}
                     onChange={(e) => setEditForm({ ...editForm, spouse: e.target.value })}
-                    style={{
-                      width: "100%",
-                      padding: "8px 12px",
-                      border: "1px solid #d1d5db",
-                      borderRadius: "6px",
-                      fontSize: "14px",
-                    }}
+                    className="input-field"
                   />
                 </div>
               )}
 
               {/* Phone Number */}
               <div>
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: "500",
-                    color: "#374151",
-                    marginBottom: "4px",
-                  }}
-                >
-                  Phone Number
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                 <input
                   type="text"
                   placeholder="+1234567890"
                   value={editForm.phone_number}
                   onChange={(e) => setEditForm({ ...editForm, phone_number: e.target.value })}
-                  style={{
-                    width: "100%",
-                    padding: "8px 12px",
-                    border: "1px solid #d1d5db",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                  }}
+                  className="input-field"
                 />
               </div>
             </div>
 
-            <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
-              <button
-                onClick={handleSaveEdit}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#2563eb",
-                  color: "white",
-                  padding: "10px 16px",
-                  borderRadius: "6px",
-                  border: "none",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                }}
-              >
+            <div className="flex gap-3 mt-6">
+              <button onClick={handleSaveEdit} className="btn-primary flex-1">
                 Save Changes
               </button>
-              <button
-                onClick={() => setEditingPerson(null)}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#f3f4f6",
-                  color: "#374151",
-                  padding: "10px 16px",
-                  borderRadius: "6px",
-                  border: "1px solid #d1d5db",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                }}
-              >
+              <button onClick={() => setEditingPerson(null)} className="btn-secondary flex-1">
                 Cancel
               </button>
             </div>
@@ -754,77 +439,24 @@ export default function PeoplePage() {
 
       {/* Delete Confirmation Modal */}
       {deletingPerson && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "24px",
-              maxWidth: "400px",
-              width: "90%",
-            }}
-          >
-            <div style={{ marginBottom: "16px" }}>
-              <h3
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  color: "#111827",
-                  margin: "0 0 8px 0",
-                }}
-              >
-                Delete Person
-              </h3>
-              <p style={{ fontSize: "14px", color: "#6b7280", margin: 0 }}>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete Person</h3>
+              <p className="text-sm text-gray-600">
                 Are you sure you want to delete <strong>{deletingPerson.name}</strong>? This action
                 cannot be undone.
               </p>
             </div>
 
-            <div style={{ display: "flex", gap: "12px" }}>
+            <div className="flex gap-3">
               <button
                 onClick={confirmDelete}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#dc2626",
-                  color: "white",
-                  padding: "10px 16px",
-                  borderRadius: "6px",
-                  border: "none",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                }}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
               >
                 Delete
               </button>
-              <button
-                onClick={() => setDeletingPerson(null)}
-                style={{
-                  flex: 1,
-                  backgroundColor: "#f3f4f6",
-                  color: "#374151",
-                  padding: "10px 16px",
-                  borderRadius: "6px",
-                  border: "1px solid #d1d5db",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                }}
-              >
+              <button onClick={() => setDeletingPerson(null)} className="btn-secondary flex-1">
                 Cancel
               </button>
             </div>
