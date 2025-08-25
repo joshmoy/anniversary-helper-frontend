@@ -12,8 +12,11 @@ import {
   PhoneIcon,
 } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function PeoplePage() {
+  const router = useRouter();
+
   const [people, setPeople] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -193,7 +196,7 @@ export default function PeoplePage() {
 
         {/* Add Person Button */}
         <button
-          onClick={() => toast.success("Add person feature coming soon!")}
+          onClick={() => router.push("/upload")}
           style={{
             display: "flex",
             alignItems: "center",

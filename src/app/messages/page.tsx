@@ -196,13 +196,22 @@ export default function MessagesPage() {
       >
         <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
           {/* Search */}
-          <div style={{ position: "relative" }}>
+          <div
+            style={{
+              paddingLeft: "40px",
+              padding: "8px 12px",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              fontSize: "14px",
+              width: "250px",
+              backgroundColor: "white",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
             <MagnifyingGlassIcon
               style={{
-                position: "absolute",
-                left: "12px",
-                top: "50%",
-                transform: "translateY(-50%)",
                 height: "16px",
                 width: "16px",
                 color: "#6b7280",
@@ -214,12 +223,8 @@ export default function MessagesPage() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
-                paddingLeft: "40px",
-                padding: "8px 12px",
-                border: "1px solid #d1d5db",
-                borderRadius: "6px",
                 fontSize: "14px",
-                width: "250px",
+                width: "200px",
               }}
             />
           </div>

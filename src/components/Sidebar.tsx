@@ -8,7 +8,6 @@ import {
   DocumentArrowUpIcon,
   ChatBubbleLeftRightIcon,
   CalendarDaysIcon,
-  Cog6ToothIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
 
@@ -18,7 +17,6 @@ const navigation = [
   { name: "Upload CSV", href: "/upload", icon: DocumentArrowUpIcon },
   { name: "Messages", href: "/messages", icon: ChatBubbleLeftRightIcon },
   { name: "Celebrations", href: "/celebrations", icon: CalendarDaysIcon },
-  { name: "Settings", href: "/settings", icon: Cog6ToothIcon },
 ];
 
 export default function Sidebar() {
