@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { apiClient } from "@/lib/api";
 import { CSVUploadResponse } from "@/types";
 import {
@@ -17,6 +17,36 @@ export default function UploadPage() {
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<CSVUploadResponse | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Helper function to determine if upload was successful
+  const isUploadSuccessful = (result: CSVUploadResponse) => {
+    // Handle new backend response format
+    if (result.status) {
+      return (
+        result.status === "processing" ||
+        result.status === "completed" ||
+        result.status === "success"
+      );
+    }
+    // Handle legacy format
+    return (
+      result.success === true ||
+      result.success === "true" ||
+      (result.records_processed && result.records_processed > 0 && !result.error)
+    );
+  };
+
+  // Helper function to reset the form
+  const resetForm = () => {
+    setFile(null);
+    setUploadResult(null);
+    setDragActive(false);
+    // Reset the file input value to allow selecting the same file again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -37,7 +67,7 @@ export default function UploadPage() {
       const droppedFile = e.dataTransfer.files[0];
       if (droppedFile.type === "text/csv" || droppedFile.name.endsWith(".csv")) {
         setFile(droppedFile);
-        setUploadResult(null);
+        setUploadResult(null); // Clear previous results when new file is selected
       } else {
         toast.error("Please select a CSV file");
       }
@@ -49,7 +79,7 @@ export default function UploadPage() {
       const selectedFile = e.target.files[0];
       if (selectedFile.type === "text/csv" || selectedFile.name.endsWith(".csv")) {
         setFile(selectedFile);
-        setUploadResult(null);
+        setUploadResult(null); // Clear previous results when new file is selected
       } else {
         toast.error("Please select a CSV file");
       }
@@ -67,8 +97,16 @@ export default function UploadPage() {
       const result = await apiClient.uploadCSV(file);
       setUploadResult(result);
 
-      if (result.success) {
-        toast.success(`Successfully processed ${result.records_processed} records!`);
+      // Handle different possible success formats from backend
+      if (isUploadSuccessful(result)) {
+        // New format shows different success message
+        if (result.message) {
+          toast.success(result.message);
+        } else {
+          toast.success(`Successfully processed ${result.records_processed || 0} records!`);
+        }
+        // Clear the form after successful upload
+        setFile(null);
       } else {
         toast.error(result.error || "Upload failed");
       }
@@ -172,6 +210,7 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
             )}
 
             <input
+              ref={fileInputRef}
               type="file"
               accept=".csv"
               onChange={handleFileChange}
@@ -194,14 +233,8 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
               {uploading ? "Uploading..." : "Upload CSV"}
             </button>
 
-            {file && (
-              <button
-                onClick={() => {
-                  setFile(null);
-                  setUploadResult(null);
-                }}
-                className="btn-secondary px-4 py-3"
-              >
+            {(file || uploadResult) && (
+              <button onClick={resetForm} className="btn-secondary px-4 py-3">
                 Clear
               </button>
             )}
@@ -216,52 +249,92 @@ Michael Brown,birthday,12-05,1978,,+1234567893`;
             <div className="card">
               {/* Status */}
               <div className="flex items-center gap-2 mb-4">
-                {uploadResult.success ? (
+                {isUploadSuccessful(uploadResult) ? (
                   <CheckCircleIcon className="h-6 w-6 text-green-500" />
                 ) : (
                   <ExclamationTriangleIcon className="h-6 w-6 text-red-500" />
                 )}
                 <span
                   className={`text-base font-semibold ${
-                    uploadResult.success ? "text-green-600" : "text-red-600"
+                    isUploadSuccessful(uploadResult) ? "text-green-600" : "text-red-600"
                   }`}
                 >
-                  {uploadResult.success ? "Upload Successful" : "Upload Failed"}
+                  {isUploadSuccessful(uploadResult) ? "Upload Successful" : "Upload Failed"}
                 </span>
               </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-gray-900">
-                    {uploadResult.records_processed}
-                  </div>
-                  <div className="text-xs text-gray-600">Records Processed</div>
+              {/* Upload Details */}
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">Filename:</span>
+                  <span className="text-sm text-gray-900">{uploadResult.filename}</span>
                 </div>
-
-                <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-600">
-                    {uploadResult.records_added}
-                  </div>
-                  <div className="text-xs text-green-600">Records Added</div>
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-600">Status:</span>
+                  <span
+                    className={`text-sm font-medium capitalize ${
+                      uploadResult.status === "processing"
+                        ? "text-blue-600"
+                        : uploadResult.status === "completed"
+                        ? "text-green-600"
+                        : "text-gray-900"
+                    }`}
+                  >
+                    {uploadResult.status}
+                  </span>
                 </div>
-
-                <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                  <div className="text-2xl font-bold text-yellow-600">
-                    {uploadResult.records_updated}
+                {uploadResult.url && (
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-600">File URL:</span>
+                    <a
+                      href={uploadResult.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-600 hover:text-blue-800 truncate max-w-xs"
+                    >
+                      View File
+                    </a>
                   </div>
-                  <div className="text-xs text-yellow-600">Records Updated</div>
-                </div>
-
-                <div className="text-center p-3 bg-red-50 rounded-lg">
-                  <div className="text-2xl font-bold text-red-600">
-                    {uploadResult.records_processed -
-                      uploadResult.records_added -
-                      uploadResult.records_updated}
-                  </div>
-                  <div className="text-xs text-red-600">Errors</div>
-                </div>
+                )}
               </div>
+
+              {/* Legacy Stats (if available) */}
+              {uploadResult.records_processed && (
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="text-center p-3 bg-gray-50 rounded-lg">
+                    <div className="text-2xl font-bold text-gray-900">
+                      {uploadResult.records_processed}
+                    </div>
+                    <div className="text-xs text-gray-600">Records Processed</div>
+                  </div>
+
+                  <div className="text-center p-3 bg-green-50 rounded-lg">
+                    <div className="text-2xl font-bold text-green-600">
+                      {uploadResult.records_added || 0}
+                    </div>
+                    <div className="text-xs text-green-600">Records Added</div>
+                  </div>
+
+                  <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                    <div className="text-2xl font-bold text-yellow-600">
+                      {uploadResult.records_updated || 0}
+                    </div>
+                    <div className="text-xs text-yellow-600">Records Updated</div>
+                  </div>
+
+                  <div className="text-center p-3 bg-red-50 rounded-lg">
+                    <div className="text-2xl font-bold text-red-600">
+                      {Math.max(
+                        0,
+                        (uploadResult.records_processed || 0) -
+                          (uploadResult.records_added || 0) -
+                          (uploadResult.records_updated || 0)
+                      )}
+                    </div>
+                    <div className="text-xs text-red-600">Errors</div>
+                  </div>
+                </div>
+              )}
 
               {/* Error Message */}
               {uploadResult.error && (

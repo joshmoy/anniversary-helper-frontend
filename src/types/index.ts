@@ -49,10 +49,16 @@ export interface HealthStatus {
 }
 
 export interface CSVUploadResponse {
-  success: boolean;
-  records_processed: number;
-  records_added: number;
-  records_updated: number;
+  message: string;
+  filename: string;
+  storage_path: string;
+  url: string;
+  status: string;
+  // Legacy fields for backward compatibility
+  success?: boolean | string;
+  records_processed?: number;
+  records_added?: number;
+  records_updated?: number;
   error?: string;
 }
 
