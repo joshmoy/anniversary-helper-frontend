@@ -1,5 +1,11 @@
 import axios from "axios";
-import { Person, PersonCreate, MessageLog, HealthStatus, CSVUploadResponse } from "@/types";
+import {
+  Person,
+  HealthStatus,
+  CSVUploadResponse,
+  LoginResponse,
+  BackendLoginResponse,
+} from "../types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -10,7 +16,49 @@ const api = axios.create({
   },
 });
 
+// Add request interceptor to include auth token
+api.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
+// Add response interceptor to handle auth errors
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Only handle auth redirects if we have a response (backend is reachable)
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      // Token is invalid, remove it and redirect to login
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("auth_user");
+      window.location.href = "/login";
+    }
+    // For network errors (backend down), just reject without redirecting
+    return Promise.reject(error);
+  }
+);
+
 export const apiClient = {
+  // Authentication
+  async login(username: string, password: string): Promise<LoginResponse> {
+    const response = await api.post<BackendLoginResponse>("/auth/login", { username, password });
+    const data = response.data;
+
+    // Transform backend response to match frontend expectations
+    return {
+      token: data.access_token,
+      user: {
+        id: 1, // Backend doesn't provide ID, using default
+        username: data.admin.username,
+      },
+    };
+  },
+
   // Health check
   async getHealth(): Promise<HealthStatus> {
     const response = await api.get("/health");

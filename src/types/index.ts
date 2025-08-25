@@ -62,6 +62,27 @@ export interface CSVUploadResponse {
   error?: string;
 }
 
+export interface User {
+  id: number;
+  username: string;
+  email?: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  user: User;
+}
+
+export interface BackendLoginResponse {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  admin: {
+    username: string;
+    is_active: boolean;
+  };
+}
+
 export interface CelebrationResponse {
   success: boolean;
   sent_count: number;
