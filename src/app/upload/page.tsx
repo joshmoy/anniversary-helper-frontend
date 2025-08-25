@@ -106,7 +106,7 @@ export default function UploadPage() {
           toast.success(`Successfully processed ${result.records_processed || 0} records!`);
         }
         // Clear the form after successful upload
-        setFile(null);
+        resetForm();
       } else {
         toast.error(result.error || "Upload failed");
       }
