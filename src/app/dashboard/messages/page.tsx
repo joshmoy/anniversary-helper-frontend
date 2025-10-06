@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { apiClient } from "@/lib/api";
+import { apiClient } from "@/lib/api/api";
 import { MessageLog } from "@/types";
 import toast from "react-hot-toast";
 import {

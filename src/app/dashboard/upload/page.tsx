@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { apiClient } from "@/lib/api";
+import { apiClient } from "@/lib/api/api";
 import { CSVUploadResponse } from "@/types";
 import {
   DocumentArrowUpIcon,

@@ -5,11 +5,18 @@ import {
   CSVUploadResponse,
   LoginResponse,
   BackendLoginResponse,
-} from "../types";
+} from "../../types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
-const api = axios.create({
+export const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export const apiWithoutAuth = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -32,12 +39,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     // Only handle auth redirects if we have a response (backend is reachable)
-    // if (error.response?.status === 401 && typeof window !== "undefined") {
-    //   // Token is invalid, remove it and redirect to login
-    //   localStorage.removeItem("auth_token");
-    //   localStorage.removeItem("auth_user");
-    //   window.location.href = "/login";
-    // }
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      // Token is invalid, remove it and redirect to login
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("auth_user");
+      window.location.href = "/auth/login";
+    }
     // For network errors (backend down), just reject without redirecting
     return Promise.reject(error);
   }

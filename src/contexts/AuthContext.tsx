@@ -1,8 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { apiClient } from "../lib/api";
 import { User } from "../types";
+import { authClient } from "@/lib/api/auth";
 
 interface AuthContextType {
   user: User | null;
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (username: string, password: string): Promise<boolean> => {
     try {
       // Try real API login
-      const response = await apiClient.login(username, password);
+      const response = await authClient.login(username, password);
       const { token, user: userData } = response;
 
       if (typeof window !== "undefined") {
@@ -80,7 +80,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     setUser(null);
   };
-
 
   const value = {
     user,

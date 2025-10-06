@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { apiClient } from "@/lib/api";
+import { apiClient } from "@/lib/api/api";
 import { Person, HealthStatus } from "@/types";
 import { format } from "date-fns";
 import {
