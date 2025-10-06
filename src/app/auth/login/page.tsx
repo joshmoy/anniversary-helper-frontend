@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../../contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -25,7 +25,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      router.push("/");
+      router.push("/dashboard");
     }
   }, [isAuthenticated, isLoading, router]);
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
       const success = await login(data.username, data.password);
       if (success) {
         toast.success("Login successful!");
-        router.push("/");
+        router.push("/dashboard");
       } else {
         toast.error("Invalid username or password");
       }

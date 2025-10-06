@@ -32,12 +32,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     // Only handle auth redirects if we have a response (backend is reachable)
-    if (error.response?.status === 401 && typeof window !== "undefined") {
-      // Token is invalid, remove it and redirect to login
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("auth_user");
-      window.location.href = "/login";
-    }
+    // if (error.response?.status === 401 && typeof window !== "undefined") {
+    //   // Token is invalid, remove it and redirect to login
+    //   localStorage.removeItem("auth_token");
+    //   localStorage.removeItem("auth_user");
+    //   window.location.href = "/login";
+    // }
     // For network errors (backend down), just reject without redirecting
     return Promise.reject(error);
   }
