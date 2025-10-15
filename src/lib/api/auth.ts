@@ -18,4 +18,30 @@ export const authClient = {
       },
     };
   },
+
+  async register(
+    fullName: string,
+    email: string,
+    password: string,
+    accountType: string
+  ): Promise<LoginResponse> {
+    // TODO: Update this endpoint when backend registration is implemented
+    const response = await apiWithoutAuth.post<BackendLoginResponse>("/auth/register", {
+      full_name: fullName,
+      email,
+      password,
+      account_type: accountType,
+    });
+    const data = response.data;
+
+    // Transform backend response to match frontend expectations
+    return {
+      token: data.access_token,
+      user: {
+        id: 1,
+        username: data.admin.username,
+        email,
+      },
+    };
+  },
 };
