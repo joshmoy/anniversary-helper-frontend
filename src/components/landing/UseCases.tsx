@@ -42,10 +42,10 @@ const useCases = [
 
 export function UseCases() {
   return (
-    <section className="w-full py-16 px-8 md:px-16 lg:px-32">
-      <div className="max-w-[1600px] mx-auto">
+    <section className="w-full py-20 px-8 md:px-16 lg:px-24">
+      <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-12">
           <h2 className="heading-section text-text-primary mb-4">Built for everyone</h2>
           <p className="text-large text-text-secondary max-w-[580px]">
             From Fortune 500 companies to families, we've got you covered
@@ -53,14 +53,14 @@ export function UseCases() {
         </div>
 
         {/* Use Case Cards */}
-        <div className="flex flex-col gap-12 max-w-[1280px] mx-auto">
+        <div className="flex flex-col gap-16">
           {useCases.map((useCase, index) => (
             <div 
               key={index}
-              className={`flex flex-col ${useCase.imagePosition === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-8 items-center`}
+              className={`flex flex-col ${useCase.imagePosition === 'right' ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-10 items-center`}
             >
               {/* Image */}
-              <div className="w-full lg:w-1/2 relative h-[320px] rounded-xl overflow-hidden">
+              <div className="w-full lg:w-[47%] relative h-[280px] lg:h-[320px] rounded-2xl overflow-hidden shadow-md">
                 <Image
                   src={useCase.image}
                   alt={useCase.imageAlt}
@@ -70,16 +70,18 @@ export function UseCases() {
               </div>
 
               {/* Content */}
-              <div className="w-full lg:w-1/2 flex flex-col gap-3">
-                <h3 className="heading-card text-text-primary">{useCase.title}</h3>
-                <p className="text-base font-normal text-text-secondary mb-2">{useCase.description}</p>
+              <div className="w-full lg:w-[53%] flex flex-col gap-4">
+                <h3 className="heading-card text-text-primary leading-tight">{useCase.title}</h3>
+                <p className="text-base font-normal text-text-secondary leading-relaxed">{useCase.description}</p>
                 
                 {/* Features List */}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 mt-1">
                   {useCase.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center gap-3">
-                      <CheckIcon width={9} height={6} color="#7f22fe" />
-                      <span className="text-base font-normal text-text-tertiary">{feature}</span>
+                    <div key={featureIndex} className="flex items-start gap-3">
+                      <div className="mt-1.5">
+                        <CheckIcon width={9} height={6} color="#7f22fe" />
+                      </div>
+                      <span className="text-base font-normal text-text-tertiary leading-relaxed">{feature}</span>
                     </div>
                   ))}
                 </div>

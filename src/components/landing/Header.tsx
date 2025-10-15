@@ -5,8 +5,8 @@ import ArrowRightIcon from '@/components/icons/ArrowRightIcon';
 
 export function Header() {
   return (
-    <header className="w-full py-4 px-8 md:px-16 lg:px-32">
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+    <header className="w-full py-5 px-8 md:px-16 lg:px-24">
+      <div className="max-w-[1280px] mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <SparkleIcon width={18} height={16} color="#7f22fe" />
           <span className="text-base font-normal text-text-primary">Anniversary Helper</span>

@@ -21,10 +21,10 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="w-full bg-footer-dark py-8 px-8 md:px-16 lg:px-32">
-      <div className="max-w-[1600px] mx-auto">
+    <footer className="w-full bg-footer-dark py-12 px-8 md:px-16 lg:px-24">
+      <div className="max-w-[1280px] mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-10">
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
@@ -36,8 +36,8 @@ export function Footer() {
 
           {/* Product Links */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-base font-normal text-white">Product</h4>
-            <div className="flex flex-col gap-2">
+            <h4 className="text-base font-normal text-white mb-1">Product</h4>
+            <div className="flex flex-col gap-2.5">
               {footerLinks.product.map((link, index) => (
                 <Link 
                   key={index}
@@ -52,8 +52,8 @@ export function Footer() {
 
           {/* Company Links */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-base font-normal text-white">Company</h4>
-            <div className="flex flex-col gap-2">
+            <h4 className="text-base font-normal text-white mb-1">Company</h4>
+            <div className="flex flex-col gap-2.5">
               {footerLinks.company.map((link, index) => (
                 <Link 
                   key={index}
@@ -68,8 +68,8 @@ export function Footer() {
 
           {/* Legal Links */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-base font-normal text-white">Legal</h4>
-            <div className="flex flex-col gap-2">
+            <h4 className="text-base font-normal text-white mb-1">Legal</h4>
+            <div className="flex flex-col gap-2.5">
               {footerLinks.legal.map((link, index) => (
                 <Link 
                   key={index}
@@ -84,7 +84,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="pt-8 border-t border-white/10">
+        <div className="pt-6 border-t border-white/10">
           <p className="text-small text-text-muted text-center">
             © 2025 Anniversary Helper. All rights reserved.
           </p>
