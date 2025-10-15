@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 @variant dark (&:is(.dark *));
 
@@ -5,6 +6,17 @@
   --font-size: 16px;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
+  
+  /* Landing page colors */
+  --brand-purple: #7f22fe;
+  --brand-purple-light: #ede9fe;
+  --brand-purple-dark: #7008e7;
+  --text-primary: #101828;
+  --text-secondary: #4a5565;
+  --text-tertiary: #364153;
+  --text-muted: #99a1af;
+  --bg-light: #f9fafb;
+  --footer-dark: #101828;
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -80,6 +92,15 @@
 }
 
 @theme {
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-light: var(--brand-purple-light);
+  --color-brand-purple-dark: var(--brand-purple-dark);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-bg-light: var(--bg-light);
+  --color-footer-dark: var(--footer-dark);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -187,6 +208,67 @@
 
 html {
   font-size: var(--font-size);
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@utility hero-gradient {
+  background: linear-gradient(135deg, rgba(245,243,255,1) 0%, rgba(255,255,255,1) 50%, rgba(253,242,248,1) 100%);
+}
+
+@utility heading-hero {
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: -1.68px;
+  line-height: 72px;
+}
+
+@utility heading-section {
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0.37px;
+  line-height: 40px;
+}
+
+@utility heading-card {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.07px;
+}
+
+@utility text-large {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.45px;
+  line-height: 28px;
+}
+
+@utility text-stat {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.40px;
+  line-height: 36px;
+}
+
+@utility text-body {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.31px;
+  line-height: 24px;
+}
+
+@utility text-small {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+}
+
+@utility text-badge {
+  font-size: 12px;
+  font-weight: 500;
 }
 
 @layer components {
