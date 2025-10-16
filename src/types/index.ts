@@ -91,3 +91,37 @@ export interface CelebrationResponse {
   total_celebrations?: number;
   message?: string;
 }
+
+// Event types for contacts
+export enum EventType {
+  Birthday = "Birthday",
+  WorkAnniversary = "Work Anniversary",
+  Anniversary = "Anniversary"
+}
+
+// Relationship types
+export enum RelationshipType {
+  Employee = "employee",
+  TeamMember = "team member",
+  Client = "client",
+  Friend = "friend",
+  Family = "family"
+}
+
+// Status types
+export enum StatusType {
+  Active = "active",
+  Inactive = "inactive"
+}
+
+// Contact interface for People page
+export interface Contact {
+  id: number;
+  name: string;
+  relationship: RelationshipType;
+  eventType: EventType;
+  eventDate: Date;
+  email: string;
+  phone: string | null;
+  status: StatusType;
+}

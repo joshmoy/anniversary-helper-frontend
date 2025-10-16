@@ -1,0 +1,530 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+@import "tailwindcss";
+@variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* Landing page colors */
+  --brand-purple: #7f22fe;
+  --brand-purple-light: #ede9fe;
+  --brand-purple-dark: #7008e7;
+  
+  /* Sidebar colors */
+  --sidebar-bg: #7f22fe;
+  --sidebar-active: #7008e7;
+  --sidebar-border: #8e51ff;
+  --sidebar-text: #ffffff;
+  --sidebar-text-muted: #ede9fe;
+  --sidebar-text-label: #ddd6ff;
+  
+  /* Dashboard status colors */
+  --status-active-bg: #f0fdf4;
+  --status-active-border: #b9f8cf;
+  --status-active-text: #ffffff;
+  --status-enabled-bg: #eff6ff;
+  --status-enabled-border: #bedbff;
+  --status-enabled-text: #ffffff;
+  --status-warning-bg: #fffbeb;
+  --status-warning-border: #fee685;
+  --status-warning-text: #ffffff;
+  --celebration-gradient-start: #faf5ff;
+  --celebration-gradient-end: #fdf2f8;
+  --celebration-border: #e9d4ff;
+  --label-text: #717182;
+  --text-primary: #101828;
+  --text-secondary: #4a5565;
+  --text-tertiary: #364153;
+  --text-muted: #99a1af;
+  --bg-light: #f9fafb;
+  --footer-dark: #101828;
+  
+  /* Event type badge colors */
+  --event-birthday-bg: #ec4899;
+  --event-birthday-text: #ffffff;
+  --event-work-anniversary-bg: #2563eb;
+  --event-work-anniversary-text: #ffffff;
+  --event-anniversary-bg: #a855f7;
+  --event-anniversary-text: #ffffff;
+  
+  /* Status badge colors */
+  --status-active-badge-bg: #16a34a;
+  --status-active-badge-text: #ffffff;
+  
+  /* Table colors */
+  --table-border: rgba(0, 0, 0, 0.10);
+  --table-header-text: #0a0a0a;
+  --table-row-text: #0a0a0a;
+  --table-row-text-secondary: #4a5565;
+  
+  /* Action icon colors */
+  --action-edit-color: #0a0a0a;
+  --action-delete-color: #ef4444;
+  
+  /* Upload zone colors */
+  --upload-zone-border: #d1d5dc;
+  --upload-zone-bg: #ffffff;
+  --upload-zone-active-border: #7f22fe;
+  --upload-zone-active-bg: #f5f3ff;
+  
+  /* Progress indicator colors */
+  --progress-bg: #eff6ff;
+  --progress-border: #bedbff;
+  --progress-bar: #030213;
+  
+  /* Success indicator colors */
+  --success-bg: #f0fdf4;
+  --success-border: #b9f8cf;
+  --success-icon: #16a34a;
+  
+  /* Card colors */
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.10);
+  
+  /* Template card colors */
+  --template-card-border: #e5e7eb;
+  --template-card-bg: #ffffff;
+  
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme {
+  --color-brand-purple: var(--brand-purple);
+  --color-brand-purple-light: var(--brand-purple-light);
+  --color-brand-purple-dark: var(--brand-purple-dark);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-text-muted: var(--sidebar-text-muted);
+  --color-sidebar-text-label: var(--sidebar-text-label);
+  --color-status-active-bg: var(--status-active-bg);
+  --color-status-active-border: var(--status-active-border);
+  --color-status-active-text: var(--status-active-text);
+  --color-status-enabled-bg: var(--status-enabled-bg);
+  --color-status-enabled-border: var(--status-enabled-border);
+  --color-status-enabled-text: var(--status-enabled-text);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-border: var(--status-warning-border);
+  --color-status-warning-text: var(--status-warning-text);
+  --color-celebration-gradient-start: var(--celebration-gradient-start);
+  --color-celebration-gradient-end: var(--celebration-gradient-end);
+  --color-celebration-border: var(--celebration-border);
+  --color-label-text: var(--label-text);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-bg-light: var(--bg-light);
+  --color-footer-dark: var(--footer-dark);
+  --color-event-birthday-bg: var(--event-birthday-bg);
+  --color-event-birthday-text: var(--event-birthday-text);
+  --color-event-work-anniversary-bg: var(--event-work-anniversary-bg);
+  --color-event-work-anniversary-text: var(--event-work-anniversary-text);
+  --color-event-anniversary-bg: var(--event-anniversary-bg);
+  --color-event-anniversary-text: var(--event-anniversary-text);
+  --color-status-active-badge-bg: var(--status-active-badge-bg);
+  --color-status-active-badge-text: var(--status-active-badge-text);
+  --color-table-border: var(--table-border);
+  --color-table-header-text: var(--table-header-text);
+  --color-table-row-text: var(--table-row-text);
+  --color-table-row-text-secondary: var(--table-row-text-secondary);
+  --color-action-edit-color: var(--action-edit-color);
+  --color-action-delete-color: var(--action-delete-color);
+  --color-upload-zone-border: var(--upload-zone-border);
+  --color-upload-zone-bg: var(--upload-zone-bg);
+  --color-upload-zone-active-border: var(--upload-zone-active-border);
+  --color-upload-zone-active-bg: var(--upload-zone-active-bg);
+  --color-progress-bg: var(--progress-bg);
+  --color-progress-border: var(--progress-border);
+  --color-progress-bar: var(--progress-bar);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-icon: var(--success-icon);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-template-card-border: var(--template-card-border);
+  --color-template-card-bg: var(--template-card-bg);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+@utility hero-gradient {
+  background: linear-gradient(135deg, rgba(245,243,255,1) 0%, rgba(255,255,255,1) 50%, rgba(253,242,248,1) 100%);
+}
+
+@utility heading-hero {
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: -1.68px;
+  line-height: 72px;
+}
+
+@utility heading-section {
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: 0.37px;
+  line-height: 40px;
+}
+
+@utility heading-card {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 0.07px;
+}
+
+@utility text-large {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.45px;
+  line-height: 28px;
+}
+
+@utility text-stat {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.40px;
+  line-height: 36px;
+}
+
+@utility text-body {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.31px;
+  line-height: 24px;
+}
+
+@utility text-small {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+}
+
+@utility text-badge {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@utility text-table-header {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  color: var(--table-header-text);
+}
+
+@utility text-table-cell {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  color: var(--table-row-text);
+}
+
+@utility text-table-cell-secondary {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  color: var(--table-row-text-secondary);
+}
+
+@utility text-table-cell-capitalize {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  text-transform: capitalize;
+  color: var(--table-row-text);
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+  }
+
+  .input-field {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-3 py-2;
+  }
+
+  .sidebar-link {
+    @apply flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors duration-200;
+  }
+
+  .sidebar-link-active {
+    @apply bg-blue-50 text-blue-700 border-r-2 border-blue-600;
+  }
+
+  .sidebar-link-inactive {
+    @apply text-gray-600 hover:bg-gray-50 hover:text-gray-900;
+  }
+}
+
+@theme inline {
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-text-muted: var(--sidebar-text-muted);
+  --color-sidebar-text-label: var(--sidebar-text-label);
+  --color-status-active-bg: var(--status-active-bg);
+  --color-status-active-border: var(--status-active-border);
+  --color-status-active-text: var(--status-active-text);
+  --color-status-enabled-bg: var(--status-enabled-bg);
+  --color-status-enabled-border: var(--status-enabled-border);
+  --color-status-enabled-text: var(--status-enabled-text);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-border: var(--status-warning-border);
+  --color-status-warning-text: var(--status-warning-text);
+  --color-celebration-gradient-start: var(--celebration-gradient-start);
+  --color-celebration-gradient-end: var(--celebration-gradient-end);
+  --color-celebration-border: var(--celebration-border);
+  --color-label-text: var(--label-text);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-event-birthday-bg: var(--event-birthday-bg);
+  --color-event-birthday-text: var(--event-birthday-text);
+  --color-event-work-anniversary-bg: var(--event-work-anniversary-bg);
+  --color-event-work-anniversary-text: var(--event-work-anniversary-text);
+  --color-event-anniversary-bg: var(--event-anniversary-bg);
+  --color-event-anniversary-text: var(--event-anniversary-text);
+  --color-status-active-badge-bg: var(--status-active-badge-bg);
+  --color-status-active-badge-text: var(--status-active-badge-text);
+  --color-table-border: var(--table-border);
+  --color-table-header-text: var(--table-header-text);
+  --color-table-row-text: var(--table-row-text);
+  --color-table-row-text-secondary: var(--table-row-text-secondary);
+  --color-action-edit-color: var(--action-edit-color);
+  --color-action-delete-color: var(--action-delete-color);
+  --color-upload-zone-border: var(--upload-zone-border);
+  --color-upload-zone-bg: var(--upload-zone-bg);
+  --color-upload-zone-active-border: var(--upload-zone-active-border);
+  --color-upload-zone-active-bg: var(--upload-zone-active-bg);
+  --color-progress-bg: var(--progress-bg);
+  --color-progress-border: var(--progress-border);
+  --color-progress-bar: var(--progress-bar);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-icon: var(--success-icon);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-template-card-border: var(--template-card-border);
+  --color-template-card-bg: var(--template-card-bg);
+}
