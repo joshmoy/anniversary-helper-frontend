@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import HeartIcon from "@/components/icons/HeartIcon";
+import { Eye, EyeOff } from "lucide-react";
 
 interface RegisterForm {
   fullName: string;
@@ -18,6 +19,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const { register: registerUser } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -178,23 +180,37 @@ export default function RegisterPage() {
                 >
                   Password
                 </label>
-                <input
-                  id="password"
-                  type="password"
-                  {...register("password", {
-                    required: "Password is required",
-                    minLength: {
-                      value: 8,
-                      message: "Password must be at least 8 characters",
-                    },
-                    pattern: {
-                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-                      message: "Password must contain uppercase, lowercase, and number",
-                    },
-                  })}
-                  placeholder="••••••••"
-                  className="w-full h-9 px-3 py-2 text-sm font-normal text-muted-foreground tracking-[-0.15px] bg-input-background rounded-lg border-0 outline-none focus:ring-2 focus:ring-ring/50 transition-all"
-                />
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 characters",
+                      },
+                      pattern: {
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+                        message: "Password must contain uppercase, lowercase, and number",
+                      },
+                    })}
+                    placeholder="••••••••"
+                    className="w-full h-9 px-3 py-2 pr-10 text-sm font-normal text-muted-foreground tracking-[-0.15px] bg-input-background rounded-lg border-0 outline-none focus:ring-2 focus:ring-ring/50 transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
                 {errors.password && (
                   <p className="text-xs text-destructive mt-1">{errors.password.message}</p>
                 )}

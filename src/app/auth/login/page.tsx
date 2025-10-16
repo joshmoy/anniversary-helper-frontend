@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 
 interface LoginForm {
   username: string;
@@ -98,9 +99,8 @@ export default function LoginPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input
+            <PasswordInput
               id="password"
-              type="password"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
