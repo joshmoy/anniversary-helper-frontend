@@ -38,6 +38,53 @@
   --text-muted: #99a1af;
   --bg-light: #f9fafb;
   --footer-dark: #101828;
+  
+  /* Event type badge colors */
+  --event-birthday-bg: #ec4899;
+  --event-birthday-text: #ffffff;
+  --event-work-anniversary-bg: #2563eb;
+  --event-work-anniversary-text: #ffffff;
+  --event-anniversary-bg: #a855f7;
+  --event-anniversary-text: #ffffff;
+  
+  /* Status badge colors */
+  --status-active-badge-bg: #16a34a;
+  --status-active-badge-text: #ffffff;
+  
+  /* Table colors */
+  --table-border: rgba(0, 0, 0, 0.10);
+  --table-header-text: #0a0a0a;
+  --table-row-text: #0a0a0a;
+  --table-row-text-secondary: #4a5565;
+  
+  /* Action icon colors */
+  --action-edit-color: #0a0a0a;
+  --action-delete-color: #ef4444;
+  
+  /* Upload zone colors */
+  --upload-zone-border: #d1d5dc;
+  --upload-zone-bg: #ffffff;
+  --upload-zone-active-border: #7f22fe;
+  --upload-zone-active-bg: #f5f3ff;
+  
+  /* Progress indicator colors */
+  --progress-bg: #eff6ff;
+  --progress-border: #bedbff;
+  --progress-bar: #030213;
+  
+  /* Success indicator colors */
+  --success-bg: #f0fdf4;
+  --success-border: #b9f8cf;
+  --success-icon: #16a34a;
+  
+  /* Card colors */
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.10);
+  
+  /* Template card colors */
+  --template-card-border: #e5e7eb;
+  --template-card-bg: #ffffff;
+  
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -142,6 +189,34 @@
   --color-text-muted: var(--text-muted);
   --color-bg-light: var(--bg-light);
   --color-footer-dark: var(--footer-dark);
+  --color-event-birthday-bg: var(--event-birthday-bg);
+  --color-event-birthday-text: var(--event-birthday-text);
+  --color-event-work-anniversary-bg: var(--event-work-anniversary-bg);
+  --color-event-work-anniversary-text: var(--event-work-anniversary-text);
+  --color-event-anniversary-bg: var(--event-anniversary-bg);
+  --color-event-anniversary-text: var(--event-anniversary-text);
+  --color-status-active-badge-bg: var(--status-active-badge-bg);
+  --color-status-active-badge-text: var(--status-active-badge-text);
+  --color-table-border: var(--table-border);
+  --color-table-header-text: var(--table-header-text);
+  --color-table-row-text: var(--table-row-text);
+  --color-table-row-text-secondary: var(--table-row-text-secondary);
+  --color-action-edit-color: var(--action-edit-color);
+  --color-action-delete-color: var(--action-delete-color);
+  --color-upload-zone-border: var(--upload-zone-border);
+  --color-upload-zone-bg: var(--upload-zone-bg);
+  --color-upload-zone-active-border: var(--upload-zone-active-border);
+  --color-upload-zone-active-bg: var(--upload-zone-active-bg);
+  --color-progress-bg: var(--progress-bg);
+  --color-progress-border: var(--progress-border);
+  --color-progress-bar: var(--progress-bar);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-icon: var(--success-icon);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-template-card-border: var(--template-card-border);
+  --color-template-card-bg: var(--template-card-bg);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -311,6 +386,35 @@ body {
   font-weight: 500;
 }
 
+@utility text-table-header {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.15px;
+  color: var(--table-header-text);
+}
+
+@utility text-table-cell {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  color: var(--table-row-text);
+}
+
+@utility text-table-cell-secondary {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  color: var(--table-row-text-secondary);
+}
+
+@utility text-table-cell-capitalize {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.15px;
+  text-transform: capitalize;
+  color: var(--table-row-text);
+}
+
 @layer components {
   .btn-primary {
     @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
@@ -395,4 +499,32 @@ body {
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-event-birthday-bg: var(--event-birthday-bg);
+  --color-event-birthday-text: var(--event-birthday-text);
+  --color-event-work-anniversary-bg: var(--event-work-anniversary-bg);
+  --color-event-work-anniversary-text: var(--event-work-anniversary-text);
+  --color-event-anniversary-bg: var(--event-anniversary-bg);
+  --color-event-anniversary-text: var(--event-anniversary-text);
+  --color-status-active-badge-bg: var(--status-active-badge-bg);
+  --color-status-active-badge-text: var(--status-active-badge-text);
+  --color-table-border: var(--table-border);
+  --color-table-header-text: var(--table-header-text);
+  --color-table-row-text: var(--table-row-text);
+  --color-table-row-text-secondary: var(--table-row-text-secondary);
+  --color-action-edit-color: var(--action-edit-color);
+  --color-action-delete-color: var(--action-delete-color);
+  --color-upload-zone-border: var(--upload-zone-border);
+  --color-upload-zone-bg: var(--upload-zone-bg);
+  --color-upload-zone-active-border: var(--upload-zone-active-border);
+  --color-upload-zone-active-bg: var(--upload-zone-active-bg);
+  --color-progress-bg: var(--progress-bg);
+  --color-progress-border: var(--progress-border);
+  --color-progress-bar: var(--progress-bar);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-success-icon: var(--success-icon);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-template-card-border: var(--template-card-border);
+  --color-template-card-bg: var(--template-card-bg);
 }

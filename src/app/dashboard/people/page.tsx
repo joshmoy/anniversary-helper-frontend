@@ -1,18 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { apiClient } from "@/lib/api/api";
-import { Person } from "@/types";
+import type { Person } from "@/types";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import SearchIcon from "@/components/icons/SearchIcon";
+import PlusIcon from "@/components/icons/PlusIcon";
+import EditIcon from "@/components/icons/EditIcon";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 import {
-  PlusIcon,
   PencilIcon,
   TrashIcon,
-  UserIcon,
-  CalendarDaysIcon,
-  PhoneIcon,
 } from "@heroicons/react/24/outline";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function PeoplePage() {
   const router = useRouter();
@@ -21,6 +27,7 @@ export default function PeoplePage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<"all" | "birthday" | "anniversary">("all");
+  const [relationshipFilter, setRelationshipFilter] = useState<string>("all");
   const [editingPerson, setEditingPerson] = useState<Person | null>(null);
   const [deletingPerson, setDeletingPerson] = useState<Person | null>(null);
   const [editForm, setEditForm] = useState({
@@ -48,11 +55,14 @@ export default function PeoplePage() {
     }
   };
 
-  const filteredPeople = people.filter((person) => {
-    const matchesSearch = person.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterType === "all" || person.event_type === filterType;
-    return matchesSearch && matchesFilter && person.active;
-  });
+  const filteredPeople = useMemo(() => {
+    return people.filter((person) => {
+      const matchesSearch = person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (person.phone_number && person.phone_number.toLowerCase().includes(searchTerm.toLowerCase()));
+      const matchesFilter = filterType === "all" || person.event_type === filterType;
+      return matchesSearch && matchesFilter && person.active;
+    });
+  }, [people, searchTerm, filterType]);
 
   const formatDate = (dateStr: string) => {
     const [month, day] = dateStr.split("-");
@@ -123,199 +133,168 @@ export default function PeoplePage() {
     }
   };
 
+  const getEventTypeBadgeStyles = (eventType: string) => {
+    switch (eventType) {
+      case "birthday":
+        return "bg-event-birthday-bg text-event-birthday-text border-0";
+      case "anniversary":
+        return "bg-event-anniversary-bg text-event-anniversary-text border-0";
+      default:
+        return "bg-event-work-anniversary-bg text-event-work-anniversary-text border-0";
+    }
+  };
+
+  const getEventTypeLabel = (eventType: string) => {
+    if (eventType === "birthday") return "Birthday";
+    if (eventType === "anniversary") return "Anniversary";
+    return "Work Anniversary";
+  };
+
   if (loading) {
     return (
-      <div className="p-8">
+      <div className="flex flex-col gap-8 p-8 bg-bg-light min-h-screen">
         <div className="flex justify-center items-center h-48">
-          <div className="text-lg text-gray-500">Loading people...</div>
+          <div className="text-lg text-gray-500">Loading contacts...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="p-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">People Management</h1>
-        <p className="text-gray-600">Manage church member information and celebration dates</p>
-      </div>
-
-      {/* Controls */}
-      <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-        <div className="flex gap-4 items-center">
-          {/* Search */}
-          <input
-            type="text"
-            placeholder="Search people..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="input-field w-48"
-          />
-
-          {/* Filter */}
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value as any)}
-            className="input-field"
+    <div className="flex flex-col gap-8 p-8 bg-bg-light min-h-screen">
+      {/* Page Header */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-[24px] font-medium tracking-[0.07px] text-text-primary">
+              People & Contacts
+            </h1>
+            <p className="text-body text-text-secondary">
+              Manage your contact list and celebrations
+            </p>
+          </div>
+          
+          <Button
+            onClick={() => router.push("/dashboard/upload")}
+            className="bg-[#2563eb] hover:bg-[#2563eb]/90 text-white rounded-lg gap-2 px-4 py-2 h-9"
           >
-            <option value="all">All Events</option>
-            <option value="birthday">Birthdays</option>
-            <option value="anniversary">Anniversaries</option>
-          </select>
+            <PlusIcon width={16} height={16} color="#ffffff" />
+            <span className="text-sm font-medium tracking-tight">Add Contact</span>
+          </Button>
         </div>
 
-        {/* Add Person Button */}
-        <button
-          onClick={() => router.push("/upload")}
-          className="btn-primary flex items-center gap-2"
-        >
-          <PlusIcon className="h-4 w-4" />
-          Add Person
-        </button>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="card">
-          <div className="flex items-center">
-            <UserIcon className="h-8 w-8 text-blue-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total People</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {people.filter((p) => p.active).length}
-              </p>
-            </div>
+        {/* Search and Filters */}
+        <div className="flex items-center gap-4">
+          <div className="relative flex-1 max-w-md">
+            <SearchIcon 
+              width={16} 
+              height={16} 
+              color="#717182" 
+              className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+            />
+            <Input
+              type="text"
+              placeholder="Search contacts..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 text-small"
+            />
           </div>
-        </div>
+          
+          <Select value={filterType} onValueChange={(value) => setFilterType(value as any)}>
+            <SelectTrigger className="w-48 bg-input-background rounded-lg">
+              <SelectValue placeholder="All Events" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Events</SelectItem>
+              <SelectItem value="birthday">Birthday</SelectItem>
+              <SelectItem value="anniversary">Anniversary</SelectItem>
+            </SelectContent>
+          </Select>
 
-        <div className="card">
-          <div className="flex items-center">
-            <CalendarDaysIcon className="h-8 w-8 text-pink-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Birthdays</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {people.filter((p) => p.active && p.event_type === "birthday").length}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center">
-            <CalendarDaysIcon className="h-8 w-8 text-purple-600" />
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Anniversaries</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {people.filter((p) => p.active && p.event_type === "anniversary").length}
-              </p>
-            </div>
-          </div>
+          <Select value={relationshipFilter} onValueChange={setRelationshipFilter}>
+            <SelectTrigger className="w-52 bg-input-background rounded-lg">
+              <SelectValue placeholder="All Relationships" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Relationships</SelectItem>
+              <SelectItem value="employee">Employee</SelectItem>
+              <SelectItem value="team member">Team Member</SelectItem>
+              <SelectItem value="client">Client</SelectItem>
+              <SelectItem value="friend">Friend</SelectItem>
+              <SelectItem value="family">Family</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
-      {/* People Table */}
-      <div className="card overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full table-auto">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Name
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Event Type
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Date
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Age/Years
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Phone
-                </th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 border-b border-gray-200">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredPeople.map((person) => (
-                <tr key={person.id} className="border-b border-gray-100">
-                  <td className="px-4 py-4 text-sm text-gray-900">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          person.event_type === "birthday" ? "bg-pink-100" : "bg-purple-100"
-                        }`}
-                      >
-                        {person.event_type === "birthday" ? "🎂" : "💕"}
-                      </div>
-                      <div>
-                        <div className="font-medium">{person.name}</div>
-                        {person.spouse && (
-                          <div className="text-xs text-gray-600">Spouse: {person.spouse}</div>
-                        )}
-                      </div>
+      {/* Contacts Table */}
+      <div className="border border-table-border rounded-lg overflow-hidden bg-white">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-b border-table-border bg-white hover:bg-white">
+              <TableHead className="text-table-header py-3">Name</TableHead>
+              <TableHead className="text-table-header py-3">Relationship</TableHead>
+              <TableHead className="text-table-header py-3">Event Type</TableHead>
+              <TableHead className="text-table-header py-3">Date</TableHead>
+              <TableHead className="text-table-header py-3">Contact Info</TableHead>
+              <TableHead className="text-table-header py-3">Status</TableHead>
+              <TableHead className="text-table-header py-3">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredPeople.map((person) => (
+              <TableRow key={person.id} className="border-b border-table-border">
+                <TableCell className="text-table-cell py-4">{person.name}</TableCell>
+                <TableCell className="text-table-cell-capitalize py-4">
+                  {person.spouse ? "family" : "employee"}
+                </TableCell>
+                <TableCell className="py-4">
+                  <Badge className={cn("text-badge rounded-[4px] px-2 py-1", getEventTypeBadgeStyles(person.event_type))}>
+                    {getEventTypeLabel(person.event_type)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-table-cell py-4">{formatDate(person.event_date)}</TableCell>
+                <TableCell className="py-4">
+                  {person.phone_number ? (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-table-cell">{person.name.toLowerCase().replace(' ', '.')}@company.com</span>
+                      <span className="text-table-cell-secondary">{person.phone_number}</span>
                     </div>
-                  </td>
-                  <td className="px-4 py-4 text-sm text-gray-900">
-                    <span
-                      className={`px-2 py-1 rounded text-xs font-medium ${
-                        person.event_type === "birthday"
-                          ? "bg-pink-100 text-pink-800"
-                          : "bg-purple-100 text-purple-800"
-                      }`}
+                  ) : (
+                    <span className="text-table-cell">{person.name.toLowerCase().replace(' ', '.')}@company.com</span>
+                  )}
+                </TableCell>
+                <TableCell className="py-4">
+                  <Badge className="bg-status-active-badge-bg text-status-active-badge-text border-0 text-badge rounded-[4px] px-2 py-1">
+                    active
+                  </Badge>
+                </TableCell>
+                <TableCell className="py-4">
+                  <div className="flex items-center gap-6">
+                    <button
+                      onClick={() => handleEdit(person)}
+                      className="hover:opacity-70 transition-opacity"
+                      aria-label="Edit contact"
                     >
-                      {person.event_type === "birthday" ? "Birthday" : "Anniversary"}
-                    </span>
-                  </td>
-                  <td className="px-4 py-4 text-sm text-gray-900">
-                    {formatDate(person.event_date)}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-gray-900">
-                    {calculateAge(person)
-                      ? `${calculateAge(person)} ${
-                          person.event_type === "birthday" ? "years old" : "years married"
-                        }`
-                      : "-"}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-gray-900">
-                    {person.phone_number ? (
-                      <div className="flex items-center gap-1">
-                        <PhoneIcon className="h-3.5 w-3.5 text-gray-500" />
-                        {person.phone_number}
-                      </div>
-                    ) : (
-                      <span className="text-gray-400">No phone</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEdit(person)}
-                        className="p-1.5 bg-gray-100 hover:bg-gray-200 rounded transition-colors"
-                      >
-                        <PencilIcon className="h-3.5 w-3.5 text-gray-600" />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(person)}
-                        className="p-1.5 bg-red-50 hover:bg-red-100 rounded transition-colors"
-                      >
-                        <TrashIcon className="h-3.5 w-3.5 text-red-600" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      <EditIcon width={16} height={16} color="var(--action-edit-color)" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(person)}
+                      className="hover:opacity-70 transition-opacity"
+                      aria-label="Delete contact"
+                    >
+                      <DeleteIcon width={16} height={16} color="var(--action-delete-color)" />
+                    </button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
 
         {filteredPeople.length === 0 && (
           <div className="py-12 text-center text-gray-600">
-            <UserIcon className="h-12 w-12 mx-auto mb-4 text-gray-300" />
             <p className="text-base">
               {searchTerm || filterType !== "all"
                 ? "No people match your search criteria"
