@@ -96,7 +96,7 @@ export interface CelebrationResponse {
 export enum EventType {
   Birthday = "Birthday",
   WorkAnniversary = "Work Anniversary",
-  Anniversary = "Anniversary"
+  Anniversary = "Anniversary",
 }
 
 // Relationship types
@@ -105,13 +105,13 @@ export enum RelationshipType {
   TeamMember = "team member",
   Client = "client",
   Friend = "friend",
-  Family = "family"
+  Family = "family",
 }
 
 // Status types
 export enum StatusType {
   Active = "active",
-  Inactive = "inactive"
+  Inactive = "inactive",
 }
 
 // Contact interface for People page
@@ -124,4 +124,35 @@ export interface Contact {
   email: string;
   phone: string | null;
   status: StatusType;
+}
+
+// AI Wish Generator API Types
+export interface AnniversaryWishRequest {
+  name: string;
+  anniversary_type:
+    | "birthday"
+    | "work-anniversary"
+    | "wedding-anniversary"
+    | "promotion"
+    | "retirement";
+  relationship: string;
+  tone: "professional" | "friendly" | "warm" | "humorous" | "formal";
+  context?: string;
+}
+
+export interface AnniversaryWishResponse {
+  generated_wish: string;
+  request_id: string;
+  remaining_requests: number;
+  window_reset_time?: string;
+}
+
+export interface RegenerateWishRequest {
+  request_id: string;
+  additional_context?: string;
+}
+
+export interface AIWishError {
+  detail: string;
+  retry_after?: number;
 }

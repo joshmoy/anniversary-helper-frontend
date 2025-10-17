@@ -1,39 +1,61 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import type { FC } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import SparkleAIIcon from '@/components/icons/SparkleAIIcon';
-import SparkleWhiteIcon from '@/components/icons/SparkleWhiteIcon';
+import { useState } from "react";
+import type { FC } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import SparkleAIIcon from "@/components/icons/SparkleAIIcon";
+import SparkleWhiteIcon from "@/components/icons/SparkleWhiteIcon";
 
 interface AIWishFormProps {
   onGenerate: (data: {
-    personName: string;
+    name: string;
+    anniversary_type:
+      | "birthday"
+      | "work-anniversary"
+      | "wedding-anniversary"
+      | "promotion"
+      | "retirement";
     relationship: string;
-    occasionType: string;
-    tone: string;
-    additionalContext: string;
+    tone: "professional" | "friendly" | "warm" | "humorous" | "formal";
+    context?: string;
   }) => void;
+  isLoading?: boolean;
+  isAuthenticated?: boolean;
 }
 
-export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
-  const [personName, setPersonName] = useState('');
-  const [relationship, setRelationship] = useState('');
-  const [occasionType, setOccasionType] = useState('');
-  const [tone, setTone] = useState('');
-  const [additionalContext, setAdditionalContext] = useState('');
+export const AIWishForm: FC<AIWishFormProps> = ({
+  onGenerate,
+  isLoading = false,
+  isAuthenticated = false,
+}) => {
+  const [personName, setPersonName] = useState("");
+  const [relationship, setRelationship] = useState("");
+  const [occasionType, setOccasionType] = useState("");
+  const [tone, setTone] = useState("");
+  const [additionalContext, setAdditionalContext] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onGenerate({
-      personName,
+      name: personName,
+      anniversary_type: occasionType as
+        | "birthday"
+        | "work-anniversary"
+        | "wedding-anniversary"
+        | "promotion"
+        | "retirement",
       relationship,
-      occasionType,
-      tone,
-      additionalContext
+      tone: tone as "professional" | "friendly" | "warm" | "humorous" | "formal",
+      context: additionalContext || undefined,
     });
   };
 
@@ -45,7 +67,9 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
         <div className="flex flex-col">
           <h3 className="text-large text-text-primary">AI Wish Generator</h3>
           <p className="text-small text-text-secondary">
-            Create personalized anniversary wishes in seconds
+            {isAuthenticated
+              ? "Create unlimited personalized anniversary wishes in seconds"
+              : "Create personalized anniversary wishes in seconds"}
           </p>
         </div>
       </div>
@@ -54,9 +78,7 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
       <div className="flex flex-col gap-5">
         {/* Person's Name */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-small font-medium text-table-header-text">
-            Person's Name *
-          </label>
+          <label className="text-small font-medium text-table-header-text">Person's Name *</label>
           <Input
             type="text"
             placeholder="e.g., Sarah Johnson"
@@ -69,9 +91,7 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
 
         {/* Relationship */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-small font-medium text-table-header-text">
-            Relationship *
-          </label>
+          <label className="text-small font-medium text-table-header-text">Relationship *</label>
           <Input
             type="text"
             placeholder="e.g., colleague, friend, team member, manager"
@@ -84,9 +104,7 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
 
         {/* Occasion Type */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-small font-medium text-table-header-text">
-            Occasion Type *
-          </label>
+          <label className="text-small font-medium text-table-header-text">Occasion Type *</label>
           <Select value={occasionType} onValueChange={setOccasionType} required>
             <SelectTrigger className="bg-input-background border-0 text-small text-label-text">
               <SelectValue placeholder="Select occasion" />
@@ -103,9 +121,7 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
 
         {/* Tone */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-small font-medium text-table-header-text">
-            Tone *
-          </label>
+          <label className="text-small font-medium text-table-header-text">Tone *</label>
           <Select value={tone} onValueChange={setTone} required>
             <SelectTrigger className="bg-input-background border-0 text-small text-label-text">
               <SelectValue placeholder="Select tone" />
@@ -137,10 +153,13 @@ export const AIWishForm: FC<AIWishFormProps> = ({ onGenerate }) => {
       {/* Generate Button */}
       <Button
         type="submit"
-        className="w-full bg-brand-purple hover:bg-brand-purple-dark text-white rounded-lg h-10 gap-2 mt-2"
+        disabled={isLoading}
+        className="w-full bg-brand-purple hover:bg-brand-purple-dark text-white rounded-lg h-10 gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <SparkleWhiteIcon width={16} height={16} color="#ffffff" />
-        <span className="text-small font-medium">Generate Wish</span>
+        <span className="text-small font-medium">
+          {isLoading ? "Generating..." : "Generate Wish"}
+        </span>
       </Button>
     </form>
   );
