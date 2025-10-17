@@ -5,6 +5,9 @@ import {
   CSVUploadResponse,
   LoginResponse,
   BackendLoginResponse,
+  AnniversaryWishRequest,
+  AnniversaryWishResponse,
+  RegenerateWishRequest,
 } from "../../types";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -140,6 +143,25 @@ export const apiClient = {
 
   async getMessageLog(messageId: number) {
     const response = await api.get(`/messages/${messageId}`);
+    return response.data;
+  },
+
+  // AI Wish Generator
+  async generateAnniversaryWish(
+    request: AnniversaryWishRequest,
+    useAuth: boolean = false
+  ): Promise<AnniversaryWishResponse> {
+    const client = useAuth ? api : apiWithoutAuth;
+    const response = await client.post("/api/anniversary-wish", request);
+    return response.data;
+  },
+
+  async regenerateAnniversaryWish(
+    request: RegenerateWishRequest,
+    useAuth: boolean = false
+  ): Promise<AnniversaryWishResponse> {
+    const client = useAuth ? api : apiWithoutAuth;
+    const response = await client.post("/api/anniversary-wish/regenerate", request);
     return response.data;
   },
 };
