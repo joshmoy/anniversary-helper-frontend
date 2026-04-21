@@ -125,7 +125,7 @@ export default function RegisterPage() {
                       message: "Use letters, numbers, dots, hyphens, or underscores only",
                     },
                   })}
-                  placeholder="tundizzy"
+                  placeholder="your username"
                   autoComplete="username"
                   className="w-full h-9 px-3 py-2 text-sm font-normal text-muted-foreground tracking-[-0.15px] bg-input-background rounded-lg border-0 outline-none focus:ring-2 focus:ring-ring/50 transition-all"
                 />
