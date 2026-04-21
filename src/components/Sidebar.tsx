@@ -39,7 +39,9 @@ export default function Sidebar() {
             Anniversary Helper
           </h1>
         </div>
-        <p className="text-sidebar-text-muted text-sm tracking-tight">Welcome!</p>
+        <p className="text-sidebar-text-muted text-sm tracking-tight">
+          {user ? `Welcome, ${user.username}!` : "Welcome!"}
+        </p>
       </div>
 
       {/* Organization Account Label */}
