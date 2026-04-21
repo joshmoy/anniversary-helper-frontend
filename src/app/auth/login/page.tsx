@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 
 interface LoginForm {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -38,12 +38,12 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginForm) => {
     setIsSubmitting(true);
     try {
-      const success = await login(data.username, data.password);
+      const success = await login(data.email, data.password);
       if (success) {
         toast.success("Login successful!");
         router.push("/dashboard");
       } else {
-        toast.error("Invalid username or password");
+        toast.error("Invalid email or password");
       }
     } catch (error) {
       toast.error("Login failed. Please try again.");
@@ -78,23 +78,23 @@ export default function LoginPage() {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
-              id="username"
-              {...register("username", {
-                required: "Username is required",
-                minLength: {
-                  value: 3,
-                  message: "Username must be at least 3 characters",
+              id="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
                 },
               })}
-              type="text"
-              autoComplete="username"
-              placeholder="Enter your username"
+              type="email"
+              autoComplete="email"
+              placeholder="Enter your email"
               required
             />
-            {errors.username && (
-              <p className="mt-1 text-sm text-red-600">{errors.username.message}</p>
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
             )}
           </div>
           <div className="space-y-2">

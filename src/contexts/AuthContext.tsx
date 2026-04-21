@@ -6,9 +6,10 @@ import { authClient } from "@/lib/api/auth";
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<boolean>;
   register: (
     fullName: string,
+    username: string,
     email: string,
     password: string,
     accountType: string
@@ -61,10 +62,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const login = async (username: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      // Try real API login
-      const response = await authClient.login(username, password);
+      const response = await authClient.login(email, password);
       const { token, user: userData } = response;
 
       if (typeof window !== "undefined") {
@@ -81,13 +81,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (
     fullName: string,
+    username: string,
     email: string,
     password: string,
     accountType: string
   ): Promise<boolean> => {
     try {
-      // Try real API registration
-      const response = await authClient.register(fullName, email, password, accountType);
+      const response = await authClient.register(fullName, username, email, password, accountType);
       const { token, user: userData } = response;
 
       if (typeof window !== "undefined") {

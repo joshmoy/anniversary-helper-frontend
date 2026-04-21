@@ -66,6 +66,10 @@ export interface User {
   id: number;
   username: string;
   email?: string;
+  full_name?: string;
+  account_type?: "personal" | "organization";
+  role?: "member" | "admin";
+  is_active?: boolean;
 }
 
 export interface LoginResponse {
@@ -77,8 +81,12 @@ export interface BackendLoginResponse {
   access_token: string;
   token_type: string;
   expires_in: number;
-  admin: {
+  user: {
     username: string;
+    email?: string;
+    full_name?: string;
+    account_type?: "personal" | "organization";
+    role?: "member" | "admin";
     is_active: boolean;
   };
 }
