@@ -10,8 +10,9 @@ import { Eye, EyeOff } from "lucide-react";
 
 interface RegisterForm {
   fullName: string;
+  username: string;
   email: string;
-  accountType: string;
+  accountType: "personal" | "organization";
   password: string;
 }
 
@@ -35,6 +36,7 @@ export default function RegisterPage() {
     try {
       const success = await registerUser(
         data.fullName,
+        data.username,
         data.email,
         data.password,
         data.accountType
@@ -104,6 +106,37 @@ export default function RegisterPage() {
               {/* Email Field */}
               <div className="space-y-2">
                 <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-foreground tracking-[-0.15px] leading-[14px]"
+                >
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  {...register("username", {
+                    required: "Username is required",
+                    minLength: {
+                      value: 3,
+                      message: "Username must be at least 3 characters",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9._-]+$/,
+                      message: "Use letters, numbers, dots, hyphens, or underscores only",
+                    },
+                  })}
+                  placeholder="tundizzy"
+                  autoComplete="username"
+                  className="w-full h-9 px-3 py-2 text-sm font-normal text-muted-foreground tracking-[-0.15px] bg-input-background rounded-lg border-0 outline-none focus:ring-2 focus:ring-ring/50 transition-all"
+                />
+                {errors.username && (
+                  <p className="text-xs text-destructive mt-1">{errors.username.message}</p>
+                )}
+              </div>
+
+              {/* Email Field */}
+              <div className="space-y-2">
+                <label
                   htmlFor="email"
                   className="block text-sm font-medium text-foreground tracking-[-0.15px] leading-[14px]"
                 >
@@ -146,8 +179,6 @@ export default function RegisterPage() {
                     <option value="">Select account type</option>
                     <option value="organization">Organization/Company</option>
                     <option value="personal">Personal Use</option>
-                    <option value="family">Family & Friends</option>
-                    <option value="other">Other</option>
                   </select>
                   <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
                     <svg

@@ -55,16 +55,20 @@ api.interceptors.response.use(
 
 export const apiClient = {
   // Authentication
-  async login(username: string, password: string): Promise<LoginResponse> {
-    const response = await api.post<BackendLoginResponse>("/auth/login", { username, password });
+  async login(email: string, password: string): Promise<LoginResponse> {
+    const response = await api.post<BackendLoginResponse>("/auth/login", { email, password });
     const data = response.data;
 
-    // Transform backend response to match frontend expectations
     return {
       token: data.access_token,
       user: {
-        id: 1, // Backend doesn't provide ID, using default
-        username: data.admin.username,
+        id: 1,
+        username: data.user.username,
+        email: data.user.email,
+        full_name: data.user.full_name,
+        account_type: data.user.account_type,
+        role: data.user.role,
+        is_active: data.user.is_active,
       },
     };
   },
